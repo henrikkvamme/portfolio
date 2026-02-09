@@ -58,7 +58,7 @@ export function ContactCard({ colSpan = 1, rowSpan = 1 }: ContactCardProps) {
             variant="glass"
           >
             <a
-              href="https://github.com/henrik392"
+              href="https://github.com/henrikkvamme"
               rel="noopener noreferrer"
               target="_blank"
             >

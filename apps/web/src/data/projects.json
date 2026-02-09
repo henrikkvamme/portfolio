@@ -19,7 +19,7 @@
       "Bun",
       "Turborepo"
     ],
-    "githubUrl": "https://github.com/henrik392/parti-chat",
+    "githubUrl": "https://github.com/henrikkvamme/parti-chat",
     "liveUrl": "https://partichat.no/",
     "status": "completed",
     "featured": true,
@@ -54,7 +54,7 @@
       "yt-dlp",
       "AI/ML"
     ],
-    "githubUrl": "https://github.com/henrik392/youtube-voice-go",
+    "githubUrl": "https://github.com/henrikkvamme/youtube-voice-go",
     "liveUrl": "https://voice-cloner.henrikkvamme.no/",
     "status": "completed",
     "featured": true,
@@ -83,7 +83,7 @@
       "jsPDF",
       "Bun"
     ],
-    "githubUrl": "https://github.com/henrik392/samfundet-medlemskort",
+    "githubUrl": "https://github.com/henrikkvamme/samfundet-medlemskort",
     "liveUrl": "https://medlemskort.henrikkvamme.no/",
     "status": "completed",
     "featured": false,
@@ -113,7 +113,7 @@
       "TailwindCSS",
       "shadcn/ui"
     ],
-    "githubUrl": "https://github.com/henrik392/merch-whiz",
+    "githubUrl": "https://github.com/henrikkvamme/merch-whiz",
     "liveUrl": "https://merch-whiz.henrikkvamme.no/",
     "status": "in-progress",
     "featured": false,
@@ -147,7 +147,7 @@
       "Three.js",
       "Turbo"
     ],
-    "githubUrl": "https://github.com/henrik392/portfolio",
+    "githubUrl": "https://github.com/henrikkvamme/portfolio",
     "liveUrl": "https://henrikkvamme.no",
     "status": "in-progress",
     "featured": false,

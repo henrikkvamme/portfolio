@@ -121,7 +121,7 @@ export type ThemeContextValue = {
 export const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
   {
     label: 'GitHub',
-    href: 'https://github.com/henrik392',
+    href: 'https://github.com/henrikkvamme',
     external: true,
   },
   {
@@ -147,7 +147,7 @@ export const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
 export const EXTERNAL_SOCIAL_LINKS: FooterLink[] = [
   {
     label: 'GitHub',
-    href: 'https://github.com/henrik392',
+    href: 'https://github.com/henrikkvamme',
     external: true,
   },
   {

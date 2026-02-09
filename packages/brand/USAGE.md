@@ -71,7 +71,7 @@ function App() {
 import { Footer } from '@henrikkvamme/brand';
 
 const customLinks = [
-  { label: 'GitHub', href: 'https://github.com/henrik392', external: true },
+  { label: 'GitHub', href: 'https://github.com/henrikkvamme', external: true },
   { label: 'Email', href: 'mailto:henrik.halvorsen.kvamme@gmail.com', external: false }
 ];
 

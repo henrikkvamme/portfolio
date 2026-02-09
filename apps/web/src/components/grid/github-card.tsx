@@ -17,7 +17,7 @@ export function GithubCard({ colSpan = 1, rowSpan = 1 }: GithubCardProps) {
     >
       <a
         className="flex h-full flex-col items-center justify-center text-center transition-colors hover:text-white/90"
-        href="https://github.com/henrik392"
+        href="https://github.com/henrikkvamme"
         rel="noopener noreferrer"
         target="_blank"
       >

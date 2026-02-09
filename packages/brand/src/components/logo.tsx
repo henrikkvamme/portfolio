@@ -37,7 +37,7 @@ const Logo: React.FC<LogoProps> = ({
 
   const currentSize = sizeClasses[size];
   const logoSrc =
-    'https://raw.githubusercontent.com/henrik392/portfolio/main/apps/web/public/images/logo.png';
+    'https://raw.githubusercontent.com/henrikkvamme/portfolio/main/apps/web/public/images/logo.png';
 
   const logoContent = (
     <>

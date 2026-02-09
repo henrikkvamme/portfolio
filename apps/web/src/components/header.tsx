@@ -146,7 +146,7 @@ export default function Header() {
             <Button asChild size="icon" variant="glass">
               <a
                 aria-label="GitHub"
-                href="https://github.com/henrik392"
+                href="https://github.com/henrikkvamme"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -203,7 +203,7 @@ export default function Header() {
                 <DropdownMenuItem asChild>
                   <a
                     className="flex items-center text-white hover:text-white/80"
-                    href="https://github.com/henrik392"
+                    href="https://github.com/henrikkvamme"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
