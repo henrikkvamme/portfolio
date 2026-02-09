@@ -284,7 +284,7 @@ const links = [
   { label: 'Home', href: '/', external: false },
   { label: 'About', href: '/about', external: false },
   { label: 'Contact', href: '/contact', external: false },
-  { label: 'GitHub', href: 'https://github.com/henrik392', external: true },
+  { label: 'GitHub', href: 'https://github.com/henrikkvamme', external: true },
 ];
 
 <Footer 
@@ -323,7 +323,7 @@ function App() {
 
 ## Contributing
 
-Contributions are welcome! Please read the contributing guidelines and submit pull requests to the [repository](https://github.com/henrik392/portfolio).
+Contributions are welcome! Please read the contributing guidelines and submit pull requests to the [repository](https://github.com/henrikkvamme/portfolio).
 
 ## License
 
@@ -332,5 +332,5 @@ MIT © [Henrik Kvamme](https://henrikkvamme.dev)
 ## Support
 
 - 📧 Email: [henrik.halvorsen.kvamme@gmail.com](mailto:henrik.halvorsen.kvamme@gmail.com)
-- 🐙 GitHub: [Issues](https://github.com/henrik392/portfolio/issues)
+- 🐙 GitHub: [Issues](https://github.com/henrikkvamme/portfolio/issues)
 - 🌐 Website: [henrikkvamme.dev](https://henrikkvamme.dev)

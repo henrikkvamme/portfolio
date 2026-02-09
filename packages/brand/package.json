@@ -34,11 +34,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/henrik392/portfolio.git",
+    "url": "git+https://github.com/henrikkvamme/portfolio.git",
     "directory": "packages/brand"
   },
   "bugs": {
-    "url": "https://github.com/henrik392/portfolio/issues"
+    "url": "https://github.com/henrikkvamme/portfolio/issues"
   },
   "homepage": "https://henrikkvamme.dev",
   "publishConfig": {
