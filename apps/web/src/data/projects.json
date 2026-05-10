@@ -60,35 +60,6 @@
     "pressUrl": "https://www.kode24.no/artikkel/sann-bygde-han-partichatno-uten-hallusinering/244501"
   },
   {
-    "id": "voice-cloner",
-    "title": "Voice Cloner",
-    "description": "Clone any voice through three input modes: URL (YouTube, TikTok, Instagram), file upload, or microphone recording using advanced AI voice synthesis.",
-    "longDescription": "An advanced voice cloning application that supports multiple input methods. Clone voices from social media URLs (YouTube, TikTok, Instagram), upload audio files directly, or record through your microphone. Uses Dia TTS technology for high-quality voice synthesis with real-time processing and cloud deployment capabilities.",
-    "technologies": [
-      "Go",
-      "HTMX",
-      "TailwindCSS",
-      "PostgreSQL",
-      "Docker",
-      "yt-dlp",
-      "AI/ML"
-    ],
-    "githubUrl": "https://github.com/henrikkvamme/youtube-voice-go",
-    "liveUrl": "https://voice-cloner.henrikkvamme.no/",
-    "status": "completed",
-    "featured": true,
-    "category": ["AI/ML", "Web App", "Audio Processing"],
-    "heroImage": "/images/projects/voice-cloner/screenshot_1.jpeg",
-    "screenshots": ["/images/projects/voice-cloner/screenshot_1.jpeg"],
-    "highlights": [
-      "Three input modes: URL, file upload, microphone",
-      "Support for YouTube, TikTok, and Instagram URLs",
-      "Real-time voice cloning with Dia TTS",
-      "Responsive web interface built with HTMX",
-      "Docker deployment ready for cloud (Google Cloud Run)"
-    ]
-  },
-  {
     "id": "henteplan",
     "title": "henteplan.no",
     "description": "Open API for Norwegian waste collection schedules — 13 providers, 265+ municipalities, with a self-healing Claude Code CI pipeline that repairs scrapers automatically.",
@@ -123,6 +94,35 @@
     "highlights": ["Widget-based dashboard", "Designed for shared housing"]
   },
   {
+    "id": "voice-cloner",
+    "title": "Voice Cloner",
+    "description": "Clone any voice through three input modes: URL (YouTube, TikTok, Instagram), file upload, or microphone recording using advanced AI voice synthesis.",
+    "longDescription": "An advanced voice cloning application that supports multiple input methods. Clone voices from social media URLs (YouTube, TikTok, Instagram), upload audio files directly, or record through your microphone. Uses Dia TTS technology for high-quality voice synthesis with real-time processing and cloud deployment capabilities.",
+    "technologies": [
+      "Go",
+      "HTMX",
+      "TailwindCSS",
+      "PostgreSQL",
+      "Docker",
+      "yt-dlp",
+      "AI/ML"
+    ],
+    "githubUrl": "https://github.com/henrikkvamme/youtube-voice-go",
+    "liveUrl": "https://voice-cloner.henrikkvamme.no/",
+    "status": "completed",
+    "featured": true,
+    "category": ["AI/ML", "Web App", "Audio Processing"],
+    "heroImage": "/images/projects/voice-cloner/screenshot_1.jpeg",
+    "screenshots": ["/images/projects/voice-cloner/screenshot_1.jpeg"],
+    "highlights": [
+      "Three input modes: URL, file upload, microphone",
+      "Support for YouTube, TikTok, and Instagram URLs",
+      "Real-time voice cloning with Dia TTS",
+      "Responsive web interface built with HTMX",
+      "Docker deployment ready for cloud (Google Cloud Run)"
+    ]
+  },
+  {
     "id": "samfundet-medlemskort",
     "title": "Samfundet Medlemskort",
     "description": "Create, crop, and print membership card photos with exact dimensions. Upload a photo, crop to the required ratio, and export a ready‑to‑print A4 sheet or PDF.",
@@ -149,35 +149,6 @@
       "Live print preview with precise mm sizing",
       "One-click PDF export functionality",
       "Accessible, responsive UI with light/dark theme"
-    ]
-  },
-  {
-    "id": "portfolio-website",
-    "title": "Developer Portfolio",
-    "description": "This very portfolio website built with modern technologies and beautiful animations.",
-    "longDescription": "A modern, responsive portfolio website showcasing projects and skills. Features beautiful animations, bento grid layout, dark theme, and optimized performance.",
-    "technologies": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "TailwindCSS",
-      "Framer Motion",
-      "Three.js",
-      "Turbo"
-    ],
-    "githubUrl": "https://github.com/henrikkvamme/portfolio",
-    "liveUrl": "https://henrikkvamme.no",
-    "status": "in-progress",
-    "featured": false,
-    "category": ["Web App", "Portfolio"],
-    "heroImage": null,
-    "screenshots": [],
-    "highlights": [
-      "Beautiful bento grid layout",
-      "Smooth animations with Framer Motion",
-      "Responsive design with modern UI",
-      "TypeScript for type safety",
-      "Optimized performance and SEO"
     ]
   }
 ]
