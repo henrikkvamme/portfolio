@@ -70,8 +70,8 @@
     "status": "completed",
     "featured": false,
     "category": ["API", "Open Data", "Automation"],
-    "heroImage": null,
-    "screenshots": [],
+    "heroImage": "/images/projects/henteplan/screenshot_1.png",
+    "screenshots": ["/images/projects/henteplan/screenshot_1.png"],
     "highlights": [
       "13 providers, 265+ municipalities",
       "Self-healing scraper CI with Claude Code",
