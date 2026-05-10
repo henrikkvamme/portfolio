@@ -10,8 +10,8 @@
     "status": "in-progress",
     "featured": true,
     "category": ["AI/ML", "Web App", "Fintech"],
-    "heroImage": null,
-    "screenshots": [],
+    "heroImage": "/images/projects/enkeltfort/screenshot_1.png",
+    "screenshots": ["/images/projects/enkeltfort/screenshot_1.png"],
     "highlights": [
       "AI agents at the core of bookkeeping",
       "Built for Norwegian sole proprietorships",
