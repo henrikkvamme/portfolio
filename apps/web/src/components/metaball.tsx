@@ -1,20 +1,48 @@
 'use client';
 
 import { useFrame, useThree } from '@react-three/fiber';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { type RawShaderMaterial, Vector2 } from 'three';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Vector2 } from 'three';
 
-// Constants
 const TRAIL_LENGTH = 15;
-const THROTTLE_INTERVAL_MS = 16; // ~60fps
-const _MIN_DIMENSION_FACTOR = 0.5;
-const INTERACTION_TIMEOUT_MS = 1000;
-const ANIMATION_TIMEOUT_MS = 10_000;
-const CHECK_INTERVAL_MS = 1000;
-const INTERACTIVE_FPS = 60;
-const IDLE_FPS = 30;
-const COORDINATE_SCALE = 4.0;
-const TRAIL_SLICE_LENGTH = 14;
+// How often the trail records the leader's position (seconds). Trail span =
+// TRAIL_LENGTH × interval ≈ 0.45s of motion history.
+const TRAIL_SHIFT_INTERVAL_S = 0.03;
+// Underdamped spring: ω₀ = √stiffness, ζ = damping / (2 ω₀).
+// ζ < 1 → leader overshoots the cursor and oscillates before settling.
+const SPRING_STIFFNESS = 80;
+const SPRING_DAMPING = 7;
+// Hard cap on |leader − target|. Below this, the spring runs unconstrained so
+// small motions feel smooth and the bounce-and-settle is fully visible. Above
+// it (sudden cursor jumps, first move from rest), the leader is projected back
+// onto the bubble edge — instant snap so it never feels laggy.
+const MAX_LAG_DISTANCE = 0.4;
+// Clamp dt so explicit Euler stays stable on a frame hitch (~30 fps floor).
+const MIN_FPS_FOR_INTEGRATION = 30;
+const MAX_DT_S = 1 / MIN_FPS_FOR_INTEGRATION;
+
+/**
+ * Coordinate system used by both the shader and the JS pointer handler:
+ *
+ *   p = (fragCoord * 2 - resolution) / min(resolution.x, resolution.y)
+ *
+ * - origin (0, 0) is the centre of the viewport
+ * - x ranges from -aspectRatio to +aspectRatio (left → right)
+ * - y ranges from -1 to +1 (bottom → top, gl_FragCoord convention)
+ *
+ * `viewportToShader` is the JS-side inverse for cursor coords. The shader's
+ * `normalizedToShader` is the same mapping but takes 0-1 inputs (so 0.5 = centre).
+ */
+const viewportToShader = (
+  clientX: number,
+  clientY: number,
+  viewport: Vector2,
+  out: Vector2
+) => {
+  const min = Math.min(viewport.x, viewport.y);
+  // clientY origin is top-left; gl_FragCoord origin is bottom-left → flip.
+  out.set((clientX * 2 - viewport.x) / min, (viewport.y - clientY * 2) / min);
+};
 
 const vertexShader = `
 attribute vec3 position;
@@ -27,29 +55,21 @@ void main() {
 `;
 
 const fragmentShader = `
-precision mediump float;
+precision highp float;
 
 const int TRAIL_LENGTH = 15;
 const float EPS = 1e-4;
 const int ITR = 16;
-const float PI = acos(-1.0);
 
 uniform float uTime;
 uniform vec2 uResolution;
 uniform vec2 uPointerTrail[TRAIL_LENGTH];
 
-varying vec2 vTexCoord;
-
-// Convert normalized coordinates (0-1) to screen-aware shader coordinates
-vec3 normalizedToShaderPos(float x, float y, float z) {
+// Map normalized 0-1 coords to the same shader space the cursor and gl_FragCoord use.
+// (0.5, 0.5) → centre of viewport.
+vec3 normalizedToShader(float x, float y, float z) {
     float aspectRatio = uResolution.x / uResolution.y;
-    float minDimension = min(uResolution.x, uResolution.y);
-
-    // Convert 0-1 to -1 to 1, then scale by aspect ratio
-    float shaderX = (x * 4.0 - 1.0) * aspectRatio;
-    float shaderY = (y * 4.0 - 1.0);
-
-    return vec3(shaderX, shaderY, z);
+    return vec3((x * 2.0 - 1.0) * aspectRatio, y * 2.0 - 1.0, z);
 }
 
 float rnd3D(vec3 p) {
@@ -60,17 +80,16 @@ float noise3D(vec3 p) {
     vec3 i = floor(p);
     vec3 f = fract(p);
 
-    float a000 = rnd3D(i); // (0,0,0)
-    float a100 = rnd3D(i + vec3(1.0, 0.0, 0.0)); // (1,0,0)
-    float a010 = rnd3D(i + vec3(0.0, 1.0, 0.0)); // (0,1,0)
-    float a110 = rnd3D(i + vec3(1.0, 1.0, 0.0)); // (1,1,0)
-    float a001 = rnd3D(i + vec3(0.0, 0.0, 1.0)); // (0,0,1)
-    float a101 = rnd3D(i + vec3(1.0, 0.0, 1.0)); // (1,0,1)
-    float a011 = rnd3D(i + vec3(0.0, 1.0, 1.0)); // (0,1,1)
-    float a111 = rnd3D(i + vec3(1.0, 1.0, 1.0)); // (1,1,1)
+    float a000 = rnd3D(i);
+    float a100 = rnd3D(i + vec3(1.0, 0.0, 0.0));
+    float a010 = rnd3D(i + vec3(0.0, 1.0, 0.0));
+    float a110 = rnd3D(i + vec3(1.0, 1.0, 0.0));
+    float a001 = rnd3D(i + vec3(0.0, 0.0, 1.0));
+    float a101 = rnd3D(i + vec3(1.0, 0.0, 1.0));
+    float a011 = rnd3D(i + vec3(0.0, 1.0, 1.0));
+    float a111 = rnd3D(i + vec3(1.0, 1.0, 1.0));
 
     vec3 u = f * f * (3.0 - 2.0 * f);
-    // vec3 u = f*f*f*(f*(f*6.0-15.0)+10.0);
 
     float k0 = a000;
     float k1 = a100 - a000;
@@ -81,137 +100,91 @@ float noise3D(vec3 p) {
     float k6 = a000 - a100 - a001 + a101;
     float k7 = -a000 + a100 + a010 - a110 + a001 - a101 - a011 + a111;
 
-    return k0 + k1 * u.x + k2 * u.y + k3 *u.z + k4 * u.x * u.y + k5 * u.y * u.z + k6 * u.z * u.x + k7 * u.x * u.y * u.z;
+    return k0 + k1 * u.x + k2 * u.y + k3 * u.z + k4 * u.x * u.y + k5 * u.y * u.z + k6 * u.z * u.x + k7 * u.x * u.y * u.z;
 }
 
-// Camera
-vec3 origin = vec3(0.0, 0.0, 1.0);
-vec3 lookAt = vec3(0.0, 0.0, 0.0);
-vec3 cDir = normalize(lookAt - origin);
-vec3 cUp = vec3(0.0, 1.0, 0.0);
-vec3 cSide = cross(cDir, cUp);
+const vec3 origin = vec3(0.0, 0.0, 1.0);
+const vec3 cDir = vec3(0.0, 0.0, -1.0);
+const vec3 cUp = vec3(0.0, 1.0, 0.0);
+const vec3 cSide = vec3(1.0, 0.0, 0.0);
 
-float smoothMin(float d1, float d2, float k) {
-    float h = exp(-k * d1) + exp(-k * d2);
+// Exponential smooth-min — wider K → sharper blend. Visually matches
+// the "fluid metaball" look better than the polynomial variant.
+float smoothMin(float a, float b, float k) {
+    float h = exp(-k * a) + exp(-k * b);
     return -log(h) / k;
 }
 
-vec3 translate(vec3 p, vec3 t) {
-    return p - t;
-}
-
-float sdSphere(vec3 p, float s)
-{
+float sdSphere(vec3 p, float s) {
     return length(p) - s;
 }
 
+// Global radius multiplier for the floating background spheres.
+const float SIZE = 0.35;
+// Cursor blob shrinks independently — keep the trail tighter than the bg spheres.
+const float TRAIL_SIZE = 0.18;
+
 float map(vec3 p) {
-    float baseRadius = 4.5e-2;
+    float baseRadius = 4.5e-2 * TRAIL_SIZE;
     float radius = baseRadius * float(TRAIL_LENGTH);
-    float k = 7.;
+    float k = 7.0;
     float d = 1e5;
 
     for (int i = 0; i < TRAIL_LENGTH; i++) {
         float fi = float(i);
-        vec2 pointerTrail = uPointerTrail[i];
-
-        float sphere = sdSphere(
-                translate(p, vec3(pointerTrail, .0)),
-                radius - baseRadius * fi
-            );
-
+        vec2 trail = uPointerTrail[i];
+        float sphere = sdSphere(p - vec3(trail, 0.0), radius - baseRadius * fi);
         d = smoothMin(d, sphere, k);
     }
 
-    // First floating metaball (top-right area)
-    vec3 floatingPos1 = normalizedToShaderPos(
-        0.85 + sin(uTime * 0.3) * 0.1,  // x: 0.75-0.95 (right side)
-        0.8 + cos(uTime * 0.2) * 0.1,   // y: 0.7-0.9 (top area)
-        sin(uTime * 0.1) * 0.2          // z: floating animation
-    );
-    float sphere1 = sdSphere(translate(p, floatingPos1), 0.3 + 0.05 * sin(uTime * 0.7));
-    d = smoothMin(d, sphere1, k);
+    vec3 fp1 = normalizedToShader(0.85 + sin(uTime * 0.3) * 0.1, 0.8 + cos(uTime * 0.2) * 0.1, sin(uTime * 0.1) * 0.2);
+    d = smoothMin(d, sdSphere(p - fp1, (0.3 + 0.05 * sin(uTime * 0.7)) * SIZE), k);
 
-    // Second floating metaball (left side)
-    vec3 floatingPos2 = normalizedToShaderPos(
-        0.15 + cos(uTime * 0.4) * 0.08, // x: 0.07-0.23 (left side)
-        0.3 + sin(uTime * 0.35) * 0.15, // y: 0.15-0.45 (lower-middle)
-        cos(uTime * 0.15) * 0.2         // z: floating animation
-    );
-    float sphere2 = sdSphere(translate(p, floatingPos2), 0.25 + 0.06 * cos(uTime * 0.5));
-    d = smoothMin(d, sphere2, k);
+    vec3 fp2 = normalizedToShader(0.15 + cos(uTime * 0.4) * 0.08, 0.3 + sin(uTime * 0.35) * 0.15, cos(uTime * 0.15) * 0.2);
+    d = smoothMin(d, sdSphere(p - fp2, (0.25 + 0.06 * cos(uTime * 0.5)) * SIZE), k);
 
-    // Third floating metaball (top center)
-    vec3 floatingPos3 = normalizedToShaderPos(
-        0.4 + sin(uTime * 0.25) * 0.15, // x: 0.25-0.55 (center-left)
-        0.9 + cos(uTime * 0.4) * 0.08,  // y: 0.82-0.98 (top area)
-        sin(uTime * 0.2) * 0.15         // z: floating animation
-    );
-    float sphere3 = sdSphere(translate(p, floatingPos3), 0.35 + 0.05 * sin(uTime * 0.9));
-    d = smoothMin(d, sphere3, k);
+    vec3 fp3 = normalizedToShader(0.4 + sin(uTime * 0.25) * 0.15, 0.9 + cos(uTime * 0.4) * 0.08, sin(uTime * 0.2) * 0.15);
+    d = smoothMin(d, sdSphere(p - fp3, (0.35 + 0.05 * sin(uTime * 0.9)) * SIZE), k);
 
-    // Fourth floating metaball (bottom-right)
-    vec3 floatingPos4 = normalizedToShaderPos(
-        0.75 + cos(uTime * 0.5) * 0.12, // x: 0.63-0.87 (right side)
-        0.2 + sin(uTime * 0.3) * 0.1,   // y: 0.1-0.3 (bottom area)
-        cos(uTime * 0.12) * 0.25        // z: floating animation
-    );
-    float sphere4 = sdSphere(translate(p, floatingPos4), 0.28 + 0.06 * cos(uTime * 0.6));
-    d = smoothMin(d, sphere4, k);
+    vec3 fp4 = normalizedToShader(0.75 + cos(uTime * 0.5) * 0.12, 0.2 + sin(uTime * 0.3) * 0.1, cos(uTime * 0.12) * 0.25);
+    d = smoothMin(d, sdSphere(p - fp4, (0.28 + 0.06 * cos(uTime * 0.6)) * SIZE), k);
 
-    // Fifth floating metaball (center area)
-    vec3 floatingPos5 = normalizedToShaderPos(
-        0.5 + sin(uTime * 0.8) * 0.2,   // x: 0.3-0.7 (center)
-        0.5 + cos(uTime * 0.6) * 0.2,   // y: 0.3-0.7 (center)
-        sin(uTime * 0.4) * 0.2          // z: floating animation
-    );
-    float sphere5 = sdSphere(translate(p, floatingPos5), 0.38 + 0.04 * sin(uTime * 1.1));
-    d = smoothMin(d, sphere5, k);
+    vec3 fp5 = normalizedToShader(0.5 + sin(uTime * 0.8) * 0.2, 0.5 + cos(uTime * 0.6) * 0.2, sin(uTime * 0.4) * 0.2);
+    d = smoothMin(d, sdSphere(p - fp5, (0.38 + 0.04 * sin(uTime * 1.1)) * SIZE), k);
 
-    // Sixth floating metaball (bottom-left)
-    vec3 floatingPos6 = normalizedToShaderPos(
-        0.25 + cos(uTime * 0.35) * 0.1, // x: 0.15-0.35 (left side)
-        0.15 + sin(uTime * 0.45) * 0.1, // y: 0.05-0.25 (bottom area)
-        cos(uTime * 0.18) * 0.2         // z: floating animation
-    );
-    float sphere6 = sdSphere(translate(p, floatingPos6), 0.27 + 0.06 * cos(uTime * 0.8));
-    d = smoothMin(d, sphere6, k);
+    vec3 fp6 = normalizedToShader(0.25 + cos(uTime * 0.35) * 0.1, 0.15 + sin(uTime * 0.45) * 0.1, cos(uTime * 0.18) * 0.2);
+    d = smoothMin(d, sdSphere(p - fp6, (0.27 + 0.06 * cos(uTime * 0.8)) * SIZE), k);
 
     return d;
 }
 
+// Tetrahedral 4-tap normal (33% fewer map() calls than 6-tap central differences).
 vec3 generateNormal(vec3 p) {
-    return normalize(vec3(
-            map(p + vec3(EPS, 0.0, 0.0)) - map(p + vec3(-EPS, 0.0, 0.0)),
-            map(p + vec3(0.0, EPS, 0.0)) - map(p + vec3(0.0, -EPS, 0.0)),
-            map(p + vec3(0.0, 0.0, EPS)) - map(p + vec3(0.0, 0.0, -EPS))
-        ));
+    const vec2 e = vec2(1.0, -1.0);
+    return normalize(
+        e.xyy * map(p + e.xyy * EPS) +
+        e.yyx * map(p + e.yyx * EPS) +
+        e.yxy * map(p + e.yxy * EPS) +
+        e.xxx * map(p + e.xxx * EPS)
+    );
 }
 
 vec3 dropletColor(vec3 normal, vec3 rayDir) {
     vec3 reflectDir = reflect(rayDir, normal);
-
-    float noisePosTime = noise3D(reflectDir * 2.0 + uTime);
-    float noiseNegTime = noise3D(reflectDir * 2.0 - uTime);
-
-    vec3 _color0 = vec3(0.1765, 0.1255, 0.2275) * noisePosTime;
-    vec3 _color1 = vec3(0.4118, 0.4118, 0.4157) * noiseNegTime;
-
-    float intensity = 2.3;
-    vec3 color = (_color0 + _color1) * intensity;
-
-    return color;
+    float n0 = noise3D(reflectDir * 2.0 + uTime);
+    float n1 = noise3D(reflectDir * 2.0 - uTime);
+    vec3 c0 = vec3(0.1765, 0.1255, 0.2275) * n0;
+    vec3 c1 = vec3(0.4118, 0.4118, 0.4157) * n1;
+    return (c0 + c1) * 2.3;
 }
 
 void main() {
     vec2 p = (gl_FragCoord.xy * 2.0 - uResolution) / min(uResolution.x, uResolution.y);
 
-    // Orthographic Camera
     vec3 ray = origin + cSide * p.x + cUp * p.y;
     vec3 rayDirection = cDir;
 
     float dist = 0.0;
-
     for (int i = 0; i < ITR; ++i) {
         dist = map(ray);
         ray += rayDirection * dist;
@@ -219,141 +192,127 @@ void main() {
     }
 
     vec3 color = vec3(0.0);
-
-    if (dist < EPS) {
-        vec3 normal = generateNormal(ray);
-
+    vec3 normal = vec3(0.0);
+    bool hit = dist < EPS;
+    if (hit) {
+        normal = generateNormal(ray);
         color = dropletColor(normal, rayDirection);
-        // color = normal; // for debug
     }
 
-    vec3 finalColor = pow(color, vec3(7.0));
+    // pow(color, 7.0) expanded as 4 multiplies.
+    vec3 c2 = color * color;
+    vec3 c4 = c2 * c2;
+    vec3 finalColor = c4 * c2 * color;
+
+    // Fresnel rim light — only on the actual surface, so the highlight tracks
+    // the 3D silhouette of each ball instead of a screen-space halo.
+    if (hit) {
+        float fresnel = 1.0 - max(dot(normal, -rayDirection), 0.0);
+        float rim = pow(fresnel, 2.5);
+        finalColor += vec3(0.65, 0.6, 0.85) * rim * 0.55;
+    }
 
     gl_FragColor = vec4(finalColor, 1.0);
 }
 `;
 
-const createUniforms = (resolution: Vector2) => {
-  return {
-    uResolution: { value: resolution },
-    uTime: { value: 0 },
-    uPointerTrail: { value: new Array(TRAIL_LENGTH).fill(new Vector2()) },
-  };
-};
-
 export default function Metaball() {
-  const { size } = useThree();
-  const materialRef = useRef<RawShaderMaterial>(null);
-  const [mouseTrail, setMouseTrail] = useState<Vector2[]>([]);
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [isAnimationActive, setIsAnimationActive] = useState(true);
-  const lastMoveTime = useRef(Date.now());
-  const lastPointerUpdate = useRef(0);
-  const frameCount = useRef(0);
-  const [uniforms] = useState(() =>
-    createUniforms(new Vector2(size.width, size.height))
+  const { gl } = useThree();
+
+  // Pre-allocated. `useMemo` guarantees the initializer runs once.
+  const trail = useMemo<Vector2[]>(
+    () => Array.from({ length: TRAIL_LENGTH }, () => new Vector2()),
+    []
   );
+  const viewport = useMemo(() => new Vector2(), []);
+  // Spring state — leader chases target, trail samples leader over time.
+  const target = useMemo(() => new Vector2(), []);
+  const leader = useMemo(() => new Vector2(), []);
+  const velocity = useMemo(() => new Vector2(), []);
+  const trailAccumRef = useRef(0);
 
-  // Handle mouse movement with throttling
-  const handlePointerMove = useCallback((event: PointerEvent) => {
-    const now = Date.now();
-    lastMoveTime.current = now;
-    setIsInteracting(true);
-    setIsAnimationActive(true); // Reactivate animation on mouse movement
-
-    // Throttle pointer updates to ~60fps
-    if (now - lastPointerUpdate.current < THROTTLE_INTERVAL_MS) {
-      return;
-    }
-    lastPointerUpdate.current = now;
-
-    // Convert to normalized coordinates that match the shader's coordinate system
-    const resolution = new Vector2(window.innerWidth, window.innerHeight);
-    const minDimension = Math.min(resolution.x, resolution.y);
-
-    const x = (event.clientX * COORDINATE_SCALE - resolution.x) / minDimension;
-    const y =
-      ((window.innerHeight - event.clientY) * COORDINATE_SCALE - resolution.y) /
-      minDimension;
-
-    const newPos = new Vector2(x, y);
-
-    setMouseTrail((prev) => {
-      const newTrail = [newPos, ...prev.slice(0, TRAIL_SLICE_LENGTH)];
-      return newTrail;
-    });
-  }, []);
-
-  // Set up mouse listener and interaction timeout
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('pointermove', handlePointerMove);
-      return () => window.removeEventListener('pointermove', handlePointerMove);
-    }
-  }, [handlePointerMove]);
-
-  // Reset interaction state after inactivity and stop animation after 10s
-  useEffect(() => {
-    const checkInteraction = () => {
-      const now = Date.now();
-      const timeSinceLastMove = now - lastMoveTime.current;
-
-      if (timeSinceLastMove > INTERACTION_TIMEOUT_MS) {
-        setIsInteracting(false);
-      }
-
-      if (timeSinceLastMove > ANIMATION_TIMEOUT_MS) {
-        setIsAnimationActive(false);
-      }
-    };
-
-    const interval = setInterval(checkInteraction, CHECK_INTERVAL_MS);
-    return () => clearInterval(interval);
-  }, []);
-
-  const updateUniforms = useCallback(
-    (delta: number, frameSkip: number) => {
-      if (uniforms.uTime) {
-        uniforms.uTime.value += delta * frameSkip;
-      }
-
-      // Only update resolution if it actually changed
-      if (
-        uniforms.uResolution &&
-        (uniforms.uResolution.value.x !== size.width ||
-          uniforms.uResolution.value.y !== size.height)
-      ) {
-        uniforms.uResolution.value.set(size.width, size.height);
-      }
-
-      if (uniforms.uPointerTrail) {
-        const trail = mouseTrail.slice(0, TRAIL_LENGTH);
-        while (trail.length < TRAIL_LENGTH) {
-          trail.push(new Vector2(0, 0));
-        }
-        uniforms.uPointerTrail.value = trail;
-      }
+  // uResolution must match the shader's `gl_FragCoord` scale, which is the
+  // drawing-buffer size — NOT the canvas's CSS size. With dpr > 1 they differ.
+  const [uniforms] = useState(() => ({
+    uResolution: {
+      value: new Vector2(gl.domElement.width, gl.domElement.height),
     },
-    [uniforms, size.width, size.height, mouseTrail]
+    uTime: { value: 0 },
+    uPointerTrail: { value: trail },
+  }));
+
+  const handlePointerMove = useCallback(
+    (event: PointerEvent) => {
+      if (viewport.x === 0 || viewport.y === 0) {
+        return;
+      }
+      // Pointer events only update the spring's target. The leader and trail
+      // advance in useFrame, so the trail keeps moving (and the leader keeps
+      // bouncing back to the cursor) even when the cursor is still.
+      viewportToShader(event.clientX, event.clientY, viewport, target);
+    },
+    [viewport, target]
   );
+
+  useEffect(() => {
+    const updateViewport = () =>
+      viewport.set(window.innerWidth, window.innerHeight);
+    updateViewport();
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('resize', updateViewport);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('resize', updateViewport);
+    };
+  }, [handlePointerMove, viewport]);
 
   useFrame((_state, delta) => {
-    // Stop rendering entirely when animation is inactive
-    if (!isAnimationActive) {
-      return;
+    const dt = Math.min(delta, MAX_DT_S);
+
+    // Underdamped spring: a = -k(x - target) - c·v. Semi-implicit Euler.
+    const fx =
+      SPRING_STIFFNESS * (target.x - leader.x) - SPRING_DAMPING * velocity.x;
+    const fy =
+      SPRING_STIFFNESS * (target.y - leader.y) - SPRING_DAMPING * velocity.y;
+    velocity.x += fx * dt;
+    velocity.y += fy * dt;
+    leader.x += velocity.x * dt;
+    leader.y += velocity.y * dt;
+
+    // Snap clamp — never let the leader fall further than MAX_LAG_DISTANCE
+    // behind. Big jumps get an instant pull; small motions are untouched.
+    const dx = target.x - leader.x;
+    const dy = target.y - leader.y;
+    const distSq = dx * dx + dy * dy;
+    if (distSq > MAX_LAG_DISTANCE * MAX_LAG_DISTANCE) {
+      const dist = Math.sqrt(distSq);
+      const drag = (dist - MAX_LAG_DISTANCE) / dist;
+      leader.x += dx * drag;
+      leader.y += dy * drag;
     }
 
-    frameCount.current++;
-
-    // Reduce frame rate when not interacting
-    const targetFps = isInteracting ? INTERACTIVE_FPS : IDLE_FPS;
-    const frameSkip = Math.ceil(60 / targetFps);
-
-    if (frameCount.current % frameSkip !== 0) {
-      return;
+    // Time-driven trail sampling — runs even when the cursor is still, so the
+    // tail visibly follows the leader's bounce-and-settle motion.
+    trailAccumRef.current += dt;
+    while (trailAccumRef.current >= TRAIL_SHIFT_INTERVAL_S) {
+      trailAccumRef.current -= TRAIL_SHIFT_INTERVAL_S;
+      for (let i = TRAIL_LENGTH - 1; i > 0; i--) {
+        trail[i].copy(trail[i - 1]);
+      }
+      trail[0].copy(leader);
     }
 
-    updateUniforms(delta, frameSkip);
+    uniforms.uTime.value += dt;
+
+    const dbW = gl.domElement.width;
+    const dbH = gl.domElement.height;
+    if (
+      uniforms.uResolution.value.x !== dbW ||
+      uniforms.uResolution.value.y !== dbH
+    ) {
+      uniforms.uResolution.value.set(dbW, dbH);
+    }
   });
 
   return (
@@ -361,7 +320,6 @@ export default function Metaball() {
       <planeGeometry args={[2, 2]} />
       <rawShaderMaterial
         fragmentShader={fragmentShader}
-        ref={materialRef}
         uniforms={uniforms}
         vertexShader={vertexShader}
       />

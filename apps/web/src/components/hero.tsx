@@ -8,6 +8,10 @@ import Metaball from '@/components/metaball';
 import { useAnimation } from '@/contexts/animation-context';
 import { WordRotate } from './magicui/word-rotate';
 
+const MIN_DPR = 1;
+const MAX_DPR = 1.5;
+const CANVAS_DPR: [number, number] = [MIN_DPR, MAX_DPR];
+
 export default function Hero() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isInView, setIsInView] = useState(true);
@@ -72,6 +76,14 @@ export default function Hero() {
       {!isThreeJSDisabled && isInView && (
         <Canvas
           className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+          dpr={CANVAS_DPR}
+          gl={{
+            powerPreference: 'high-performance',
+            antialias: false,
+            alpha: false,
+            stencil: false,
+            depth: false,
+          }}
           resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
           style={{
             width: dimensions.width,
