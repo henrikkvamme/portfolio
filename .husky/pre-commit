@@ -1,3 +1,1 @@
-lint-staged
-
-npx ultracite format
+bunx lint-staged

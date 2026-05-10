@@ -2,15 +2,38 @@
   "name": "@henrikkvamme/brand",
   "version": "1.0.2",
   "description": "Reusable brand elements for Henrik Kvamme projects - logo, footer, and theme components",
-  "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "keywords": [
+    "brand",
+    "components",
+    "footer",
+    "henrik-kvamme",
+    "logo",
+    "react",
+    "theme"
+  ],
+  "homepage": "https://henrikkvamme.dev",
+  "bugs": {
+    "url": "https://github.com/henrikkvamme/portfolio/issues"
+  },
+  "license": "MIT",
+  "author": "Henrik Kvamme <henrik.halvorsen.kvamme@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrikkvamme/portfolio.git",
+    "directory": "packages/brand"
+  },
   "files": [
     "dist",
     "assets",
     "README.md"
   ],
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -21,49 +44,26 @@
     "lint": "biome lint .",
     "check-types": "tsc --noEmit"
   },
-  "keywords": [
-    "react",
-    "components",
-    "brand",
-    "logo",
-    "footer",
-    "theme",
-    "henrik-kvamme"
-  ],
-  "author": "Henrik Kvamme <henrik.halvorsen.kvamme@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/henrikkvamme/portfolio.git",
-    "directory": "packages/brand"
-  },
-  "bugs": {
-    "url": "https://github.com/henrikkvamme/portfolio/issues"
-  },
-  "homepage": "https://henrikkvamme.dev",
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+  "dependencies": {
+    "clsx": "^2.0.0"
   },
   "devDependencies": {
-    "@types/react": "^19.1.1",
-    "@types/react-dom": "^19.1.1",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "@rollup/plugin-url": "^8.0.0",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.1",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "typescript": "^5.0.0",
-    "postcss": "^8.4.0",
-    "autoprefixer": "^10.4.0"
+    "typescript": "^5.0.0"
   },
-  "dependencies": {
-    "clsx": "^2.0.0"
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   }
 }

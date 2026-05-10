@@ -35,11 +35,9 @@ function App() {
       <header>
         <Logo />
       </header>
-      
-      <main>
-        {/* Your content */}
-      </main>
-      
+
+      <main>{/* Your content */}</main>
+
       <Footer />
     </div>
   );
@@ -57,13 +55,13 @@ A responsive logo component with Henrik's brand identity, featuring automatic th
 ```jsx
 import { Logo } from '@henrikkvamme/brand';
 
-<Logo />
+<Logo />;
 ```
 
 #### Advanced Usage
 
 ```jsx
-<Logo 
+<Logo
   size="lg"
   showText={true}
   href="/"
@@ -75,15 +73,15 @@ import { Logo } from '@henrikkvamme/brand';
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the logo |
-| `showText` | `boolean` | `true` | Whether to show "Henrik Kvamme" text |
-| `alt` | `string` | `'Henrik Kvamme Logo'` | Alt text for the logo image |
-| `onClick` | `() => void` | - | Click handler |
-| `href` | `string` | - | Makes logo a link |
-| `target` | `string` | `'_self'` | Link target |
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type                           | Default                | Description                          |
+| ----------- | ------------------------------ | ---------------------- | ------------------------------------ |
+| `size`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`                 | Size of the logo                     |
+| `showText`  | `boolean`                      | `true`                 | Whether to show "Henrik Kvamme" text |
+| `alt`       | `string`                       | `'Henrik Kvamme Logo'` | Alt text for the logo image          |
+| `onClick`   | `() => void`                   | -                      | Click handler                        |
+| `href`      | `string`                       | -                      | Makes logo a link                    |
+| `target`    | `string`                       | `'_self'`              | Link target                          |
+| `className` | `string`                       | -                      | Additional CSS classes               |
 
 #### Size Examples
 
@@ -103,7 +101,7 @@ A flexible footer component with customizable links and automatic copyright year
 ```jsx
 import { Footer } from '@henrikkvamme/brand';
 
-<Footer />
+<Footer />;
 ```
 
 #### Advanced Usage
@@ -114,37 +112,37 @@ import { Footer, DEFAULT_SOCIAL_LINKS } from '@henrikkvamme/brand';
 const customLinks = [
   { label: 'Blog', href: '/blog', external: false },
   { label: 'Portfolio', href: '/portfolio', external: false },
-  ...DEFAULT_SOCIAL_LINKS
+  ...DEFAULT_SOCIAL_LINKS,
 ];
 
-<Footer 
+<Footer
   title="My Company"
   tagline="Building amazing software"
   links={customLinks}
   showCopyright={true}
   copyrightHolder="My Company Inc."
   className="custom-footer"
-/>
+/>;
 ```
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `title` | `string` | `'Henrik Kvamme'` | Footer title |
-| `tagline` | `string` | `'Full-Stack Developer & AI Engineer'` | Subtitle text |
-| `links` | `FooterLink[]` | `DEFAULT_SOCIAL_LINKS` | Array of footer links |
-| `showCopyright` | `boolean` | `true` | Show copyright text |
-| `copyrightText` | `string` | - | Custom copyright text |
-| `copyrightHolder` | `string` | `'Henrik Kvamme'` | Copyright holder name |
-| `className` | `string` | - | Additional CSS classes |
+| Prop              | Type           | Default                                | Description            |
+| ----------------- | -------------- | -------------------------------------- | ---------------------- |
+| `title`           | `string`       | `'Henrik Kvamme'`                      | Footer title           |
+| `tagline`         | `string`       | `'Full-Stack Developer & AI Engineer'` | Subtitle text          |
+| `links`           | `FooterLink[]` | `DEFAULT_SOCIAL_LINKS`                 | Array of footer links  |
+| `showCopyright`   | `boolean`      | `true`                                 | Show copyright text    |
+| `copyrightText`   | `string`       | -                                      | Custom copyright text  |
+| `copyrightHolder` | `string`       | `'Henrik Kvamme'`                      | Copyright holder name  |
+| `className`       | `string`       | -                                      | Additional CSS classes |
 
 #### FooterLink Type
 
 ```typescript
 interface FooterLink {
-  label: string;      // Display text
-  href: string;       // URL
+  label: string; // Display text
+  href: string; // URL
   external?: boolean; // Opens in new tab if true
 }
 ```
@@ -156,6 +154,7 @@ The package includes a comprehensive theming system that automatically adapts to
 ### Theme Detection
 
 The components automatically detect and respond to:
+
 - CSS class `.dark` on any parent element
 - `data-theme="dark"` attribute
 - System preference (`prefers-color-scheme: dark`)
@@ -167,10 +166,10 @@ The package defines these CSS custom properties that you can override:
 ```css
 :root {
   /* Brand colors */
-  --hk-primary: #804bf2;      /* Vibrant purple */
-  --hk-secondary: #4a2b8c;    /* Darker purple */
-  --hk-accent: #231640;       /* Darkest purple */
-  
+  --hk-primary: #804bf2; /* Vibrant purple */
+  --hk-secondary: #4a2b8c; /* Darker purple */
+  --hk-accent: #231640; /* Darkest purple */
+
   /* Light theme */
   --hk-background: #ffffff;
   --hk-foreground: #000000;
@@ -179,7 +178,8 @@ The package defines these CSS custom properties that you can override:
   --hk-text-muted: rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="dark"], .dark {
+[data-theme='dark'],
+.dark {
   /* Dark theme */
   --hk-background: #000000;
   --hk-foreground: #ffffff;
@@ -219,12 +219,14 @@ If you're using Tailwind CSS, the components work seamlessly with Tailwind's dar
 The components use these CSS classes that you can style:
 
 #### Logo
+
 - `.hk-logo` - Logo container
 - `.hk-logo-image` - Logo image
 - `.hk-logo-text` - Logo text
 - `.hk-font-mono` - Geist Mono font class
 
 #### Footer
+
 - `.hk-footer` - Footer container
 - `.hk-footer-container` - Inner container
 - `.hk-footer-content` - Content wrapper
@@ -265,11 +267,7 @@ import { Logo } from '@henrikkvamme/brand';
 export default function Header() {
   return (
     <header className="p-4">
-      <Logo 
-        href="/"
-        size="md"
-        showText={true}
-      />
+      <Logo href="/" size="md" showText={true} />
     </header>
   );
 }
@@ -287,11 +285,11 @@ const links = [
   { label: 'GitHub', href: 'https://github.com/henrikkvamme', external: true },
 ];
 
-<Footer 
+<Footer
   title="Henrik Kvamme"
   tagline="Full-Stack Developer & AI Engineer"
   links={links}
-/>
+/>;
 ```
 
 ### Dark Mode Toggle
@@ -302,12 +300,10 @@ import { Logo, Footer } from '@henrikkvamme/brand';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  
+
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <button onClick={() => setDarkMode(!darkMode)}>
-        Toggle Theme
-      </button>
+      <button onClick={() => setDarkMode(!darkMode)}>Toggle Theme</button>
       <Logo />
       <Footer />
     </div>

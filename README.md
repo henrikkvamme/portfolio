@@ -11,7 +11,7 @@ I'm Henrik Kvamme, a passionate developer with **10 years of experience** starti
 ### What I Do
 
 - **Full-Stack Development** - Crafting complete web applications from frontend to backend
-- **Mobile Development** - Building native and cross-platform mobile apps  
+- **Mobile Development** - Building native and cross-platform mobile apps
 - **AI Engineering** - Implementing machine learning and AI solutions
 - **Algorithm Design** - Competitive programming and optimization
 
@@ -49,7 +49,6 @@ First, install the dependencies:
 bun install
 ```
 
-
 Then, run the development server:
 
 ```bash
@@ -58,8 +57,6 @@ bun dev
 
 Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
 The API is running at [http://localhost:3000](http://localhost:3000).
-
-
 
 ## Project Structure
 
@@ -85,4 +82,4 @@ portfolio/
 
 I'm always open for **freelance opportunities** and interesting challenges. Whether you have a project in mind, want to collaborate, or just want to chat about tech - let's build something amazing together!
 
-*Ready to create exceptional user experiences that users love.*
+_Ready to create exceptional user experiences that users love._

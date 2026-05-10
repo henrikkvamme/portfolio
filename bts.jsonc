@@ -9,19 +9,12 @@
   "orm": "none",
   "backend": "next",
   "runtime": "bun",
-  "frontend": [
-    "next"
-  ],
-  "addons": [
-    "biome",
-    "husky",
-    "turborepo",
-    "ultracite"
-  ],
+  "frontend": ["next"],
+  "addons": ["biome", "husky", "turborepo", "ultracite"],
   "examples": [],
   "auth": false,
   "packageManager": "bun",
   "dbSetup": "none",
   "api": "none",
-  "webDeploy": "none"
+  "webDeploy": "none",
 }

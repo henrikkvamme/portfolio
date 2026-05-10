@@ -1,15 +1,15 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans:
-    var(--font-geist-mono), ui-monospace, "Cascadia Code", "Roboto Mono", Menlo,
-    monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+    var(--font-geist-mono), ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo,
+    monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
   --font-geist-mono:
-    ui-monospace, "Cascadia Code", "Roboto Mono", Menlo, monospace;
+    ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo, monospace;
 
   /* Custom Theme Colors */
   --color-theme-primary: #804bf2; /* vibrant purple */
@@ -162,7 +162,7 @@ body {
   }
 
   .glass-navbar::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -177,7 +177,7 @@ body {
   }
 
   .glass-navbar::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -206,7 +206,7 @@ body {
   }
 
   .glass-card::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

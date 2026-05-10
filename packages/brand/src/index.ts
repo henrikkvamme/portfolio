@@ -1,7 +1,6 @@
 // Import and re-export styles
 import './styles.css';
 
-// biome-ignore lint/performance/noBarrelFile: This is the main package entry point
 export { default as Footer } from './components/footer';
 // Components
 export { default as Logo } from './components/logo';

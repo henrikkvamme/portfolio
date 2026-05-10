@@ -16,19 +16,18 @@ export type Project = {
   highlights?: string[];
 };
 
-export interface ProjectCardProps
-  extends Pick<
-    Project,
-    | 'id'
-    | 'title'
-    | 'description'
-    | 'image'
-    | 'heroImage'
-    | 'technologies'
-    | 'githubUrl'
-    | 'liveUrl'
-    | 'pressUrl'
-  > {
+export interface ProjectCardProps extends Pick<
+  Project,
+  | 'id'
+  | 'title'
+  | 'description'
+  | 'image'
+  | 'heroImage'
+  | 'technologies'
+  | 'githubUrl'
+  | 'liveUrl'
+  | 'pressUrl'
+> {
   status?: Project['status'];
   featured?: boolean;
 }

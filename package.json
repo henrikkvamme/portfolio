@@ -6,13 +6,15 @@
     "packages/*"
   ],
   "scripts": {
-    "check": "biome check --write .",
     "dev": "turbo dev",
     "build": "turbo build",
     "check-types": "turbo check-types",
-    "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
-    "dev:server": "turbo -F server dev"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt",
+    "check": "oxlint && oxfmt --check"
   },
   "dependencies": {
     "@radix-ui/react-switch": "^1.2.6",
@@ -24,16 +26,20 @@
     "three": "^0.179.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
     "@types/react-map-gl": "^6.1.7",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
-    "turbo": "^2.5.4",
-    "ultracite": "5.2.5"
+    "oxfmt": "^0.48.0",
+    "oxlint": "^1.63.0",
+    "turbo": "^2.5.4"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
-      "npx ultracite format"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint --fix",
+      "oxfmt"
+    ],
+    "*.{json,jsonc,md,mdx,css,scss,yaml,yml,html,toml}": [
+      "oxfmt"
     ]
   },
   "packageManager": "bun@1.2.19"

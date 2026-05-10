@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "semi": true,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "ignorePatterns": [
+    "**/.next/**",
+    "**/.output/**",
+    "**/.turbo/**",
+    "**/dist/**",
+    "**/dev-dist/**",
+    "**/node_modules/**",
+    "**/routeTree.gen.ts",
+    "**/.expo/**",
+    "**/.wrangler/**",
+    "**/.source/**",
+    "**/coverage/**",
+    "**/build/**",
+    "apps/web/public/**",
+    "bun.lock",
+    "bun.lockb",
+    "packages/brand/dist/**",
+    "**/*.tsbuildinfo"
+  ]
+}

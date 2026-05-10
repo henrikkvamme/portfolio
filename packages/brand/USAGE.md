@@ -72,7 +72,11 @@ import { Footer } from '@henrikkvamme/brand';
 
 const customLinks = [
   { label: 'GitHub', href: 'https://github.com/henrikkvamme', external: true },
-  { label: 'Email', href: 'mailto:henrik.halvorsen.kvamme@gmail.com', external: false }
+  {
+    label: 'Email',
+    href: 'mailto:henrik.halvorsen.kvamme@gmail.com',
+    external: false,
+  },
 ];
 
 function App() {
@@ -101,12 +105,7 @@ import { Logo } from '@henrikkvamme/brand';
 function Header() {
   return (
     <header>
-      <Logo 
-        size="md" 
-        showText={true} 
-        href="/" 
-        className="text-white"
-      />
+      <Logo size="md" showText={true} href="/" className="text-white" />
     </header>
   );
 }
@@ -144,11 +143,13 @@ function Header() {
 ## Themes
 
 ### Light Theme
+
 - Clean gray/white styling
 - Perfect for professional websites
 - Blue accent for links
 
-### Dark Theme  
+### Dark Theme
+
 - Dark with backdrop blur effects
 - Perfect for portfolio/creative sites
 - White/blue accents

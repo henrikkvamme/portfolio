@@ -60,13 +60,14 @@ export default function Hero() {
       }
     );
 
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
+    const node = heroRef.current;
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, []);

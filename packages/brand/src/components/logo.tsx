@@ -43,7 +43,6 @@ const Logo: React.FC<LogoProps> = ({
     <>
       {/* Logo image */}
       <div className="relative">
-        {/* biome-ignore lint/performance/noImgElement: Using img for external CDN logo */}
         <img
           alt={alt}
           className={clsx('m-1 object-contain', currentSize.image)}

@@ -1,8 +1,7 @@
 import type * as React from 'react';
 import { cn } from '@/lib/utils';
 
-interface SelectFilterProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectFilterProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   placeholder?: string;
   options: Array<{
     value: string;
