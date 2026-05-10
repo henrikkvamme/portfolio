@@ -1,5 +1,4 @@
-'use client';
-
+import { useHydrated } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import type * as React from 'react';
 import Tilt from 'react-parallax-tilt';
@@ -52,7 +51,8 @@ export function TiltCard({
   };
 
   const { x: tiltX, y: tiltY } = getTiltAngles();
-  const tiltEnabled = tiltX > 0 || tiltY > 0;
+  const hydrated = useHydrated();
+  const tiltEnabled = hydrated && (tiltX > 0 || tiltY > 0);
 
   const SINGLE_COL = 1;
   const DOUBLE_COL = 2;
@@ -84,16 +84,22 @@ export function TiltCard({
       viewport={{ once: true, margin: '-50px' }}
       whileInView={{ opacity: 1, y: 0 }}
     >
-      <Tilt
-        className="w-full"
-        tiltEnable={tiltEnabled}
-        tiltMaxAngleX={tiltX}
-        tiltMaxAngleY={tiltY}
-      >
-        <div className={cardClasses} {...props}>
+      {hydrated ? (
+        <Tilt
+          className="w-full"
+          tiltEnable={tiltEnabled}
+          tiltMaxAngleX={tiltX}
+          tiltMaxAngleY={tiltY}
+        >
+          <div className={cardClasses} {...props}>
+            {children}
+          </div>
+        </Tilt>
+      ) : (
+        <div className={cn('w-full', cardClasses)} {...props}>
           {children}
         </div>
-      </Tilt>
+      )}
     </motion.div>
   );
 }

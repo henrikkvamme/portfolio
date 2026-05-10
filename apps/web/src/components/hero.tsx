@@ -1,5 +1,3 @@
-'use client';
-
 import { Canvas } from '@react-three/fiber';
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -18,7 +16,7 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const { isAnimationEnabled } = useAnimation();
   const isThreeJSDisabled =
-    process.env.NEXT_PUBLIC_DISABLE_THREEJS === 'true' || !isAnimationEnabled;
+    import.meta.env.VITE_DISABLE_THREEJS === 'true' || !isAnimationEnabled;
 
   const scrollToContent = () => {
     const mainElement = document.querySelector('main');

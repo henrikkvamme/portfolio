@@ -1,5 +1,4 @@
-'use client';
-
+import { ClientOnly, createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import { Footer } from '@/components/footer';
 import { BentoGrid } from '@/components/grid/bento-grid';
@@ -7,19 +6,23 @@ import Hero from '@/components/hero';
 import { Projects } from '@/components/projects';
 import { WorkExperience } from '@/components/work-experience';
 
-export default function Home() {
+export const Route = createFileRoute('/')({
+  component: Home,
+});
+
+function Home() {
   return (
     <div>
-      {/* Full-width hero */}
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <Hero />
+        <ClientOnly fallback={<div className="h-svh w-full" />}>
+          <Hero />
+        </ClientOnly>
       </motion.div>
 
-      {/* Constrained content sections */}
       <motion.div
         className="mx-auto max-w-7xl px-6 py-20 lg:px-8"
         initial={{ opacity: 0 }}
@@ -28,7 +31,6 @@ export default function Home() {
         whileInView={{ opacity: 1 }}
       >
         <BentoGrid />
-        {/* Work Experience Section */}
         <motion.div
           className="mb-20"
           id="work"
@@ -40,7 +42,6 @@ export default function Home() {
           <WorkExperience />
         </motion.div>
 
-        {/* Projects */}
         <motion.div
           id="projects"
           initial={{ opacity: 0, y: 50 }}
@@ -52,7 +53,6 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      {/* Footer */}
       <motion.div
         initial={{ opacity: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}

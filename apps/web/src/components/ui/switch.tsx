@@ -1,5 +1,3 @@
-'use client';
-
 import { Root, Thumb } from '@radix-ui/react-switch';
 import type * as React from 'react';
 

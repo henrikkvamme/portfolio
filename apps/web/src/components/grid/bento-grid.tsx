@@ -1,3 +1,4 @@
+import { ClientOnly } from '@tanstack/react-router';
 import { AchievementCard } from './achievement-card';
 import { AwardsCard } from './awards-card';
 import { CogitoCard } from './cogito-card';
@@ -26,7 +27,13 @@ export function BentoGrid() {
 
       {/* Working style + presence */}
       <PhilosophyCard colSpan={2} />
-      <LocationCard colSpan={1} />
+      <ClientOnly
+        fallback={
+          <div className="rounded-2xl border border-white/10 bg-white/5" />
+        }
+      >
+        <LocationCard colSpan={1} />
+      </ClientOnly>
 
       {/* Skills showcase */}
       <TechStackCard colSpan={3} />

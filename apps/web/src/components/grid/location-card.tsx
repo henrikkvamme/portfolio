@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import type { MapRef } from 'react-map-gl/mapbox';
 import { Map as MapboxMap, Marker } from 'react-map-gl/mapbox';
@@ -12,7 +10,7 @@ type LocationCardProps = {
 };
 
 export function LocationCard({ colSpan = 1, rowSpan = 2 }: LocationCardProps) {
-  const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+  const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
   const mapRef = useRef<MapRef>(null);
 
   useEffect(() => {

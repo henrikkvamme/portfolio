@@ -1,5 +1,3 @@
-'use client';
-
 type CustomSwitchProps = {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;

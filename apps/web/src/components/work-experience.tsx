@@ -1,8 +1,5 @@
-'use client';
-
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import Tilt from 'react-parallax-tilt';
 import {
   calculateDuration,
   formatDatePeriod,
@@ -58,13 +55,7 @@ function JourneyCard({ experience, index, isLeft }: JourneyCardProps) {
 
       {/* Card */}
       <div className={`w-full lg:max-w-md ${isLeft ? 'lg:pr-8' : 'lg:pl-8'}`}>
-        <Tilt
-          className="w-full"
-          glareEnable={false}
-          tiltEnable={false}
-          tiltMaxAngleX={3}
-          tiltMaxAngleY={3}
-        >
+        <div className="w-full">
           <div
             className={`group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/10 ${isSpecialProject ? 'border-theme-primary/60 bg-theme-primary/10' : ''}`}
           >
@@ -181,7 +172,7 @@ function JourneyCard({ experience, index, isLeft }: JourneyCardProps) {
               )}
             </div>
           </div>
-        </Tilt>
+        </div>
       </div>
     </motion.div>
   );

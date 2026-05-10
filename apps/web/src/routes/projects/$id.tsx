@@ -1,64 +1,58 @@
+import {
+  Link,
+  createFileRoute,
+  notFound,
+  useParams,
+} from '@tanstack/react-router';
 import { ExternalLink, Github, Newspaper } from 'lucide-react';
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { TechPill } from '@/components/tech-pill';
 import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
 import { getStatusColor, getStatusText } from '@/lib/status-utils';
 
-type ProjectPageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
 function getProject(id: string) {
   return projects.find((project) => project.id === id);
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    id: project.id,
-  }));
-}
-
-export async function generateMetadata({
-  params,
-}: ProjectPageProps): Promise<Metadata> {
-  const { id } = await params;
-  const project = getProject(id);
-
-  if (!project) {
+export const Route = createFileRoute('/projects/$id')({
+  loader: ({ params }) => {
+    const project = getProject(params.id);
+    if (!project) {
+      throw notFound();
+    }
+    return { project };
+  },
+  head: ({ loaderData }) => {
+    const project = loaderData?.project;
+    if (!project) {
+      return { meta: [{ title: 'Project Not Found' }] };
+    }
     return {
-      title: 'Project Not Found',
+      meta: [
+        { title: `${project.title} - Henrik Kvamme` },
+        { name: 'description', content: project.description },
+        { property: 'og:title', content: project.title },
+        { property: 'og:description', content: project.description },
+        ...(project.heroImage
+          ? [{ property: 'og:image', content: project.heroImage }]
+          : []),
+      ],
     };
-  }
+  },
+  component: ProjectPage,
+});
 
-  return {
-    title: `${project.title} - Henrik Kvamme`,
-    description: project.description,
-    openGraph: {
-      title: project.title,
-      description: project.description,
-      images: project.heroImage ? [project.heroImage] : [],
-    },
-  };
-}
-
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { id } = await params;
+function ProjectPage() {
+  const { id } = useParams({ from: '/projects/$id' });
   const project = getProject(id);
 
   if (!project) {
-    notFound();
+    throw notFound();
   }
 
   return (
     <div className="mt-24 min-h-screen bg-black">
       <div className="mx-auto max-w-7xl px-8 py-12 lg:px-10">
-        {/* Hero Section */}
         <div className="mb-16">
           <div className="mb-6 flex flex-wrap items-center gap-4">
             <span
@@ -84,14 +78,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="flex flex-wrap gap-4">
             {project.liveUrl && (
               <Button asChild size="lg" variant="glass">
-                <Link
+                <a
                   href={project.liveUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <ExternalLink className="mr-2 h-5 w-5" />
                   View Live Demo
-                </Link>
+                </a>
               </Button>
             )}
             {project.githubUrl && (
@@ -109,26 +103,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
-        {/* Hero Image */}
         {project.heroImage && (
           <div className="mb-16">
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-              <Image
+              <img
                 alt={`${project.title} screenshot`}
-                className="object-cover object-top"
-                fill
-                priority
+                className="absolute inset-0 h-full w-full object-cover object-top"
                 src={project.heroImage}
               />
             </div>
           </div>
         )}
 
-        {/* Content Grid */}
         <div className="grid gap-16 lg:grid-cols-3">
-          {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Key Features */}
             {project.highlights && project.highlights.length > 0 && (
               <section className="mb-12">
                 <h2 className="mb-6 font-bold text-3xl text-white">
@@ -148,7 +136,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </section>
             )}
 
-            {/* Screenshots Gallery */}
             {project.screenshots.length > 1 && (
               <section className="mb-12">
                 <h2 className="mb-6 font-bold text-3xl text-white">
@@ -160,10 +147,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       className="relative aspect-video overflow-hidden rounded-lg border border-white/10 bg-white/5"
                       key={screenshot}
                     >
-                      <Image
+                      <img
                         alt={`${project.title} screenshot ${index + 2}`}
-                        className="object-cover object-top"
-                        fill
+                        className="absolute inset-0 h-full w-full object-cover object-top"
+                        loading="lazy"
                         src={screenshot}
                       />
                     </div>
@@ -173,9 +160,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-1">
-            {/* Tech Stack */}
             <section className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-6">
               <h3 className="mb-4 font-semibold text-white text-xl">
                 Tech Stack
@@ -187,7 +172,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </section>
 
-            {/* Categories */}
             <section className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-6">
               <h3 className="mb-4 font-semibold text-white text-xl">
                 Categories
@@ -204,7 +188,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </section>
 
-            {/* Project Links */}
             <section className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <h3 className="mb-4 font-semibold text-white text-xl">
                 Project Links
@@ -216,14 +199,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     className="w-full justify-start"
                     variant="glass"
                   >
-                    <Link
+                    <a
                       href={project.liveUrl}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Live Demo
-                    </Link>
+                    </a>
                   </Button>
                 )}
                 {project.githubUrl && (
@@ -260,6 +243,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 )}
               </div>
             </section>
+
+            <div className="mt-8">
+              <Button asChild variant="ghost">
+                <Link to="/">← Back home</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

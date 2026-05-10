@@ -1,15 +1,23 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/mona-sans';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans:
-    var(--font-geist-mono), ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo,
+    'Geist Mono Variable', ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo,
     monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     'Noto Color Emoji';
   --font-geist-mono:
-    ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo, monospace;
+    'Geist Mono Variable', ui-monospace, 'Cascadia Code', 'Roboto Mono', Menlo,
+    monospace;
+  --font-mona-sans: 'Mona Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', 'Roboto Mono',
+    Menlo, monospace;
 
   /* Custom Theme Colors */
   --color-theme-primary: #804bf2; /* vibrant purple */

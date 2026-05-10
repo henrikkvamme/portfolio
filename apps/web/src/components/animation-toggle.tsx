@@ -1,5 +1,3 @@
-'use client';
-
 import { Zap } from 'lucide-react';
 import { useAnimation } from '@/contexts/animation-context';
 import CustomSwitch from './custom-switch';

@@ -1,10 +1,9 @@
-# Nixpacks configuration for Turborepo - apps/web only
+# Nixpacks configuration for the TanStack Start web app
 [variables]
 NODE_ENV = "production"
 PORT = "3000"
-HOSTNAME = "0.0.0.0"
+HOST = "0.0.0.0"
 
-# Use Bun as package manager and Node.js for runtime
 [phases.setup]
 nixPkgs = ["bun", "nodejs"]
 
@@ -12,11 +11,11 @@ nixPkgs = ["bun", "nodejs"]
 cmds = ["bun install --frozen-lockfile"]
 
 [phases.build]
+# Build the brand package first (web depends on it), then the web app
 cmds = [
-  "bun run build --filter=web",
-  "cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static",
-  "cp -r apps/web/public apps/web/.next/standalone/apps/web/public",
+  "bun --filter=@henrikkvamme/brand run build",
+  "bun --filter=web run build",
 ]
 
 [start]
-cmd = "cd apps/web/.next/standalone && node apps/web/server.js"
+cmd = "node apps/web/.output/server/index.mjs"

@@ -1,5 +1,3 @@
-'use client';
-
 import {
   ArrowLeft,
   Briefcase,
@@ -10,8 +8,7 @@ import {
   Menu,
   Zap,
 } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
 const NAVBAR_HEIGHT_OFFSET = 120;
@@ -33,7 +30,7 @@ import Logo from './logo';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAnimationEnabled, toggleAnimation } = useAnimation();
-  const pathname = usePathname();
+  const pathname = useLocation({ select: (s) => s.pathname });
 
   // Check if we're on a specific project page (not the projects list)
   const isProjectPage =
@@ -111,13 +108,14 @@ export default function Header() {
           {isProjectPage ? (
             <Link
               className="flex items-center gap-2 text-white/80 transition-colors hover:text-white"
-              href="/#projects"
+              hash="projects"
+              to="/"
             >
               <ArrowLeft className="h-4 w-4" />
               <span className="font-medium">Back to Projects</span>
             </Link>
           ) : (
-            <Link href="/">
+            <Link to="/">
               <Logo />
             </Link>
           )}
@@ -182,7 +180,8 @@ export default function Header() {
                   <DropdownMenuItem asChild>
                     <Link
                       className="flex items-center text-white hover:text-white/80"
-                      href="/#projects"
+                      hash="projects"
+                      to="/"
                     >
                       <ArrowLeft className="mr-2 h-4 w-4" />
                       Back to Projects

@@ -37,11 +37,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "prepare": "npm run build",
+    "prepare": "bun run build",
     "clean": "rm -rf dist",
-    "check": "biome check --write .",
-    "format": "biome format --write .",
-    "lint": "biome lint .",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {

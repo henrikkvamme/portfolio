@@ -1,7 +1,18 @@
 node_modules
-.turbo
 .env
 .env.local
 PORTFOLIO_ENHANCEMENT_PLAN.md
 dist
 .claude/settings.local.json
+
+# TanStack Start (Vite + Nitro)
+.output
+.vinxi
+src/routeTree.gen.ts
+**/routeTree.gen.ts
+
+# Bun
+bun.lockb
+
+# Editor
+.DS_Store

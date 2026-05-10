@@ -1,5 +1,3 @@
-'use client';
-
 import { useRef } from 'react';
 import { TiltCard } from '@/components/tilt-card';
 

@@ -2,7 +2,7 @@
 
 > Full-Stack Developer, AI Engineer & Creative Technologist
 
-Interactive portfolio showcasing a decade of development experience, featuring advanced 3D graphics with ray marching and metaballs.
+Interactive portfolio showcasing a decade of development experience, featuring 3D graphics (ray marching, metaballs), parallax tilt cards, and a Mapbox location bento card.
 
 ## About Me
 
@@ -10,76 +10,76 @@ I'm Henrik Kvamme, a passionate developer with **10 years of experience** starti
 
 ### What I Do
 
-- **Full-Stack Development** - Crafting complete web applications from frontend to backend
-- **Mobile Development** - Building native and cross-platform mobile apps
-- **AI Engineering** - Implementing machine learning and AI solutions
-- **Algorithm Design** - Competitive programming and optimization
+- **Full-Stack Development** — Crafting complete web applications from frontend to backend
+- **Mobile Development** — Building native and cross-platform mobile apps
+- **AI Engineering** — Implementing machine learning and AI solutions
+- **Algorithm Design** — Competitive programming and optimization
 
 ### Current Tech Stack
 
-- **Go-To Stack**: Next.js + oRPC + PostgreSQL + Drizzle
-- **Frontend**: React, Next.js, TypeScript
+- **Go-To Stack**: TanStack Start + oRPC + PostgreSQL + Drizzle
+- **Frontend**: React, TanStack Router/Query, TypeScript
 - **Backend**: Rust, Python (FastAPI/Django), Hono, Java Spring Boot
 - **Databases**: PostgreSQL, SQLite, MySQL, Prisma/Drizzle
 - **AI/ML**: Python, TensorFlow, PyTorch
 
----
+## Tech
 
-## Technical Details
-
-This portfolio was built with a modern TypeScript stack, featuring interactive 3D graphics using ray marching and signed distance functions.
-
-## Features
-
-- **TypeScript** - For type safety and improved developer experience
-- **Next.js** - Full-stack React framework
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **shadcn/ui** - Reusable UI components
-- **Next.js** - Full-stack React framework
-- **Bun** - Runtime environment
-- **Biome** - Linting and formatting
-- **Husky** - Git hooks for code quality
-- **Turborepo** - Optimized monorepo build system
+- **TanStack Start** + Vite + Nitro — full-stack React framework
+- **TypeScript** with strict mode
+- **TailwindCSS v4**
+- **shadcn/ui** components
+- **Bun** as package manager and runtime
+- **oxlint** + **oxfmt** — Rust-based linting and formatting
+- **Husky** + **lint-staged** for pre-commit checks
 
 ## Getting Started
 
-First, install the dependencies:
-
 ```bash
 bun install
+bun run dev          # → http://localhost:3000
 ```
 
-Then, run the development server:
+## Available Scripts
 
-```bash
-bun dev
-```
-
-Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
-The API is running at [http://localhost:3000](http://localhost:3000).
+| Command               | What it does                                |
+| --------------------- | ------------------------------------------- |
+| `bun run dev`         | Start the web app in development mode       |
+| `bun run build`       | Build every workspace package (brand → web) |
+| `bun run build:web`   | Build only the web app                      |
+| `bun run check-types` | Run `tsc --noEmit` across all workspaces    |
+| `bun run lint`        | Run oxlint                                  |
+| `bun run lint:fix`    | Run oxlint with autofix                     |
+| `bun run format`      | Check formatting with oxfmt                 |
+| `bun run format:fix`  | Apply formatting with oxfmt                 |
+| `bun run check`       | Lint + format check (CI gate)               |
 
 ## Project Structure
 
 ```
 portfolio/
 ├── apps/
-│   ├── web/         # Frontend application (Next.js)
-│   └── server/      # Backend API (Next)
+│   └── web/              # TanStack Start app (Vite + Nitro)
+└── packages/
+    └── brand/            # Shared brand components (Logo, Footer)
 ```
 
-## Available Scripts
+## Environment Variables
 
-- `bun dev`: Start all applications in development mode
-- `bun build`: Build all applications
-- `bun dev:web`: Start only the web application
-- `bun dev:server`: Start only the server
-- `bun check-types`: Check TypeScript types across all apps
-- `bun check`: Run Biome formatting and linting
+Copy `apps/web/.env.example` to `apps/web/.env.local` and fill in:
+
+- `VITE_POSTHOG_KEY` — PostHog project key (optional)
+- `VITE_MAPBOX_ACCESS_TOKEN` — Mapbox public token for the location card
+- `VITE_DISABLE_THREEJS` — set to `true` to skip the hero three.js scene during dev
+
+## Deployment
+
+Configured for Dokploy via `nixpacks.toml` (and `railpack.toml` as backup). The build emits `apps/web/.output/server/index.mjs`, started with `node apps/web/.output/server/index.mjs`.
 
 ---
 
 ## Let's Connect
 
-I'm always open for **freelance opportunities** and interesting challenges. Whether you have a project in mind, want to collaborate, or just want to chat about tech - let's build something amazing together!
+I'm always open for **freelance opportunities** and interesting challenges. Whether you have a project in mind, want to collaborate, or just want to chat about tech — let's build something amazing together!
 
 _Ready to create exceptional user experiences that users love._

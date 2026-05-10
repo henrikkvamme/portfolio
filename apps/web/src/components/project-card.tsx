@@ -1,6 +1,5 @@
+import { Link } from '@tanstack/react-router';
 import { ExternalLink, Eye, Github, Newspaper, Star } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { TechPill } from '@/components/tech-pill';
 import { TiltCard } from '@/components/tilt-card';
 import { Button } from '@/components/ui/button';
@@ -30,11 +29,11 @@ export function ProjectCard({
         {/* Hero Image */}
         {heroImage && (
           <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-white/10 bg-white/5 sm:aspect-[16/9]">
-            <Link href={`/projects/${id}`}>
-              <Image
+            <Link to="/projects/$id" params={{ id }}>
+              <img
                 alt={`${title} screenshot`}
-                className="object-cover object-top transition-transform hover:scale-105"
-                fill
+                className="absolute inset-0 h-full w-full object-cover object-top transition-transform hover:scale-105"
+                loading="lazy"
                 src={heroImage}
               />
             </Link>
@@ -52,10 +51,11 @@ export function ProjectCard({
             <div className="flex-shrink-0 self-center sm:self-start">
               <div className="relative flex h-16 w-16 items-center justify-center rounded-lg border border-white/10 bg-gradient-to-br from-blue-500/20 to-theme-primary/20 sm:h-16 sm:w-16">
                 {image ? (
-                  <Image
+                  <img
                     alt={title}
                     className="h-full w-full rounded-lg object-cover"
                     height={96}
+                    loading="lazy"
                     src={image}
                     width={96}
                   />
@@ -93,7 +93,7 @@ export function ProjectCard({
               </div>
               <div className="flex justify-center gap-1.5 sm:ml-3 sm:justify-end">
                 <Button asChild size="sm" variant="glass">
-                  <Link href={`/projects/${id}`}>
+                  <Link to="/projects/$id" params={{ id }}>
                     <Eye className="h-3 w-3" />
                     <span className="xs:inline hidden sm:inline">Details</span>
                   </Link>

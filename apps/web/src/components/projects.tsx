@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { ProjectCard } from '@/components/project-card';
 import { SelectFilter } from '@/components/ui/select-filter';

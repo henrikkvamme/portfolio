@@ -1,16 +1,16 @@
 [variables]
 NODE_ENV = "production"
-HOSTNAME = "0.0.0.0"
+HOST = "0.0.0.0"
 PORT = "3000"
 
 [install]
-cmd = "bun install"
+cmd = "bun install --frozen-lockfile"
 
 [build]
-# Build only the web app from the monorepo
-cmd = "bun run build --filter=web"
+# Build the brand package first (web depends on it), then the web app
+cmd = "bun --filter=@henrikkvamme/brand run build && bun --filter=web run build"
 
 [launch]
-# Start the web app
-cmd = "cd apps/web && bun run start"
+# Start the TanStack Start node server (Nitro output)
+cmd = "node apps/web/.output/server/index.mjs"
 port = 3000

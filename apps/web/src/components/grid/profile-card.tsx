@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { TiltCard } from '@/components/tilt-card';
 
 type ProfileCardProps = {
@@ -16,11 +15,10 @@ export function ProfileCard({ colSpan = 1, rowSpan = 1 }: ProfileCardProps) {
       tiltIntensity="subtle"
     >
       <div className="mb-4">
-        <Image
+        <img
           alt="Henrik Kvamme"
           className="h-16 w-16 rounded-full object-cover sm:h-20 sm:w-20"
           height={80}
-          priority
           src="/images/profile.jpg"
           width={80}
         />
