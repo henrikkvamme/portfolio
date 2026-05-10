@@ -4,3 +4,4 @@ node_modules
 .env.local
 PORTFOLIO_ENHANCEMENT_PLAN.md
 dist
+.claude/settings.local.json
