@@ -18,17 +18,16 @@ export function ExpertiseCard({
       tiltIntensity="subtle"
     >
       <h3 className="mb-2 font-semibold text-sm text-white/70">
-        Ready to hire
+        Let's grab a coffee
       </h3>
       <h2 className="mb-4 font-bold text-2xl text-white tracking-tight sm:text-3xl lg:text-4xl">
         Full-Stack Developer
       </h2>
       <p className="mb-8 max-w-2xl text-white/80 leading-relaxed">
-        Computer Science student at NTNU, Norway's leading technology
-        university. Competitive programming background combined with hands-on
-        startup experience. Skilled in modern development stacks and rapid
-        iteration cycles. Open to part-time opportunities during studies and
-        full-time work in the summer.
+        Computer Science student at NTNU with a competitive programming
+        background and hands-on startup experience across modern stacks.
+        Currently at OptoScale — always up to chat about side projects,
+        consulting, or anything interesting. Coffee's on me.
       </p>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

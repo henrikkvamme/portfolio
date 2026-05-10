@@ -1,5 +1,24 @@
 [
   {
+    "id": "enkeltfort",
+    "title": "Enkeltført",
+    "description": "AI-native accounting platform for Norwegian sole proprietorships. Automates bookkeeping with AI at the core.",
+    "longDescription": "AI-native accounting for Norwegian enkeltpersonforetak. Built around AI agents that classify transactions, draft entries, and surface insights — bookkeeping is automated, not assisted.",
+    "technologies": ["Bun", "TypeScript", "React", "PostgreSQL"],
+    "githubUrl": null,
+    "liveUrl": "https://enkeltfort.no",
+    "status": "in-progress",
+    "featured": true,
+    "category": ["AI/ML", "Web App", "Fintech"],
+    "heroImage": null,
+    "screenshots": [],
+    "highlights": [
+      "AI agents at the core of bookkeeping",
+      "Built for Norwegian sole proprietorships",
+      "Modern Bun + TypeScript stack"
+    ]
+  },
+  {
     "id": "parti-chat",
     "title": "Partichat",
     "description": "Featured in Kode24 - A multi-party political Q&A chat providing neutral, side-by-side answers from Norwegian political parties based on their official programs.",
@@ -70,6 +89,40 @@
     ]
   },
   {
+    "id": "henteplan",
+    "title": "henteplan.no",
+    "description": "Open API for Norwegian waste collection schedules — 13 providers, 265+ municipalities, with a self-healing Claude Code CI pipeline that repairs scrapers automatically.",
+    "longDescription": "Aggregates waste-collection schedules across 13 providers and 265+ Norwegian municipalities into a single open API. The CI pipeline uses Claude Code to detect and repair broken scrapers without human intervention.",
+    "technologies": ["TypeScript", "Bun", "GitHub Actions", "Claude Code"],
+    "githubUrl": null,
+    "liveUrl": "https://henteplan.no",
+    "status": "completed",
+    "featured": false,
+    "category": ["API", "Open Data", "Automation"],
+    "heroImage": null,
+    "screenshots": [],
+    "highlights": [
+      "13 providers, 265+ municipalities",
+      "Self-healing scraper CI with Claude Code",
+      "Open API for civic-tech use"
+    ]
+  },
+  {
+    "id": "sambu",
+    "title": "sambu",
+    "description": "Widget-based dashboard for Norwegian shared housing (kollektiv).",
+    "longDescription": "A widget-based dashboard tailored for kollektiv life — chores, expenses, and shared logistics in one place.",
+    "technologies": ["TypeScript", "React", "Next.js"],
+    "githubUrl": null,
+    "liveUrl": "https://sambu.no",
+    "status": "in-progress",
+    "featured": false,
+    "category": ["Web App", "Dashboard"],
+    "heroImage": null,
+    "screenshots": [],
+    "highlights": ["Widget-based dashboard", "Designed for shared housing"]
+  },
+  {
     "id": "samfundet-medlemskort",
     "title": "Samfundet Medlemskort",
     "description": "Create, crop, and print membership card photos with exact dimensions. Upload a photo, crop to the required ratio, and export a ready‑to‑print A4 sheet or PDF.",
@@ -96,41 +149,6 @@
       "Live print preview with precise mm sizing",
       "One-click PDF export functionality",
       "Accessible, responsive UI with light/dark theme"
-    ]
-  },
-  {
-    "id": "merch-whiz",
-    "title": "Merch-Whiz",
-    "description": "Effortless Print-on-Demand Merchandise Creation. Design and order custom merchandise like t-shirts, hoodies, and mugs with ease.",
-    "longDescription": "A user-friendly platform that empowers anyone to design and order custom merchandise. No design skills needed! Features secure authentication, product catalog, intuitive design creation, order management, and planned automated fulfillment.",
-    "technologies": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "tRPC",
-      "Prisma",
-      "NextAuth.js",
-      "TailwindCSS",
-      "shadcn/ui"
-    ],
-    "githubUrl": "https://github.com/henrikkvamme/merch-whiz",
-    "liveUrl": "https://merch-whiz.henrikkvamme.no/",
-    "status": "in-progress",
-    "featured": false,
-    "category": ["E-commerce", "Web App", "Design Tool"],
-    "heroImage": "/images/projects/merch-whiz/screenshot_1.jpeg",
-    "screenshots": [
-      "/images/projects/merch-whiz/screenshot_1.jpeg",
-      "/images/projects/merch-whiz/screenshot_2.jpeg",
-      "/images/projects/merch-whiz/screenshot_3.jpeg",
-      "/images/projects/merch-whiz/screenshot_4.jpeg"
-    ],
-    "highlights": [
-      "User authentication with Google OAuth",
-      "Intuitive design creation with product previews",
-      "Product catalog with t-shirts, hoodies, mugs",
-      "End-to-end typesafe APIs with tRPC",
-      "Planned integration with Gelato API and Stripe"
     ]
   },
   {

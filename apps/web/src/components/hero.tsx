@@ -71,7 +71,7 @@ export default function Hero() {
     <section className="relative h-screen w-full" ref={heroRef}>
       {!isThreeJSDisabled && isInView && (
         <Canvas
-          className="absolute inset-0 touch-none select-none overflow-hidden"
+          className="pointer-events-none absolute inset-0 select-none overflow-hidden"
           resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
           style={{
             width: dimensions.width,
@@ -79,8 +79,6 @@ export default function Hero() {
             userSelect: 'none',
             WebkitUserSelect: 'none',
             WebkitTouchCallout: 'none',
-            touchAction: 'pan-y pinch-zoom',
-            overscrollBehavior: 'none',
           }}
         >
           <ambientLight intensity={Math.PI / 2} />
@@ -102,7 +100,7 @@ export default function Hero() {
               'Backend Developer',
               'Frontend Developer',
               'Creator',
-              'Algorithm Engineer',
+              'Competitive Programmer',
               'Computer Scientist',
             ]}
           />

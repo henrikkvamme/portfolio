@@ -25,8 +25,8 @@ export function ContactCard({ colSpan = 1, rowSpan = 1 }: ContactCardProps) {
           Get In Touch
         </h2>
         <p className="mb-6 text-sm text-white/80 leading-relaxed">
-          Available for part-time work, full-time work in the summer, and
-          interesting projects.
+          Currently at OptoScale — open to side projects, consulting, and
+          interesting opportunities.
         </p>
 
         <div className="space-y-3">

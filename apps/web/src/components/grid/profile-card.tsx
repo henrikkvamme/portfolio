@@ -32,7 +32,9 @@ export function ProfileCard({ colSpan = 1, rowSpan = 1 }: ProfileCardProps) {
         <p className="text-sm text-white/70">Software Developer</p>
         <div className="flex items-center justify-center gap-2 pt-1">
           <div className="h-1.5 w-1.5 rounded-full bg-green-400" />
-          <span className="text-white/60 text-xs">Available for work</span>
+          <span className="text-white/60 text-xs">
+            Open to projects & consulting
+          </span>
         </div>
       </div>
     </TiltCard>

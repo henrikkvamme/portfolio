@@ -27,9 +27,10 @@ export function AchievementCard({
             Programming Journey
           </h2>
           <p className="text-white/80 leading-relaxed">
-            Programming since age 10, competed nationally in algorithms, now
-            building real solutions for startups. From maritime tech to AI
-            platforms, focused on practical development with modern tech stacks.
+            Programming since age 10 and competing nationally — most recently
+            1st place at BUILDARENA @ TECHARENA (Sweden) and StartIT x Tripletex
+            (NTNU) in 2026. From maritime tech to AI accounting platforms,
+            focused on shipping real products fast.
           </p>
         </div>
       </div>

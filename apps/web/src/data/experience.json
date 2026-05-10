@@ -1,19 +1,45 @@
 [
   {
+    "id": "optoscale-junior",
+    "company": "OptoScale AS",
+    "companyDescription": "Aquaculture-tech platform for fish health and biomass monitoring",
+    "role": "Junior Software Engineer",
+    "startDate": "2026-02-01",
+    "endDate": null,
+    "location": "Trondheim, Norway",
+    "isCurrentRole": true,
+    "technologies": [
+      "React",
+      "Django",
+      "TypeScript",
+      "Bun",
+      "PostgreSQL",
+      "BigQuery",
+      "GCP",
+      "TailwindCSS",
+      "shadcn/ui"
+    ],
+    "highlights": [
+      "Full-stack on aquaculture-tech platform",
+      "Data dashboards and internal tools"
+    ],
+    "description": "Full-stack development on aquaculture-tech platform. Built and maintained data dashboards and internal tools with Tailwind, shadcn, and modern frontend tooling."
+  },
+  {
     "id": "eksamensportalen",
     "company": "Eksamensportalen",
     "companyDescription": "Exam preparation platform for NTNU students across all subjects",
     "role": "Lead Developer & Coach",
     "startDate": "2025-06-01",
-    "endDate": null,
+    "endDate": "2025-08-31",
     "location": "Remote",
-    "isCurrentRole": true,
+    "isCurrentRole": false,
     "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL", "Next.js"],
     "highlights": [
       "0-to-launch in 2 months",
       "Mentored junior developer throughout"
     ],
-    "description": "Built exam preparation platform from scratch for NTNU students. Architected scalable question bank system and mentored junior developer."
+    "description": "Led rebuild from ExphilEksamen to Eksamensportalen.no. Shipped targeted MCQ practice from prior exams with pass guarantee, introduced CI and code review, and mentored a junior developer."
   },
   {
     "id": "texicon-consultant",
@@ -21,9 +47,9 @@
     "companyDescription": "Technology consultancy specializing in enterprise solutions and emerging tech",
     "role": "Consultant Developer",
     "startDate": "2024-09-01",
-    "endDate": null,
+    "endDate": "2026-02-28",
     "location": "Trondheim, Norway",
-    "isCurrentRole": true,
+    "isCurrentRole": false,
     "technologies": [
       "TypeScript",
       "Rust",
@@ -36,8 +62,11 @@
       "Tokio",
       "Protobuf"
     ],
-    "highlights": ["Rust, gRPC, Tokio, Flutter in production"],
-    "description": "Consultancy role across multiple projects. Working with Rust, gRPC, and Flutter in production."
+    "highlights": [
+      "Rust, gRPC, Tokio, Flutter in production",
+      "Improved observability and performance"
+    ],
+    "description": "Contributed to Rust microservices (Tokio, gRPC/Protobuf) and Flutter apps. Collaborated on requirements, testing, and reviews; supported integration and deployment workflows."
   },
   {
     "id": "barebrukt-fullstack",

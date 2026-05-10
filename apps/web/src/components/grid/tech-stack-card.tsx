@@ -121,6 +121,18 @@ const technologies: Technology[] = [
     category: 'backend',
     color: 'from-yellow-400/60 to-theme-secondary/70',
   },
+  {
+    name: 'Django',
+    icon: '🎸',
+    category: 'backend',
+    color: 'from-green-500/60 to-theme-dark/70',
+  },
+  {
+    name: 'oRPC',
+    icon: '🔌',
+    category: 'backend',
+    color: 'from-blue-400/60 to-theme-primary/70',
+  },
 
   // Database
   {
@@ -140,6 +152,24 @@ const technologies: Technology[] = [
     icon: '▲',
     category: 'database',
     color: 'from-theme-primary/60 to-theme-secondary/80',
+  },
+  {
+    name: 'Drizzle',
+    icon: '💧',
+    category: 'database',
+    color: 'from-cyan-400/60 to-theme-primary/60',
+  },
+  {
+    name: 'pgvector',
+    icon: '🧭',
+    category: 'database',
+    color: 'from-blue-600/60 to-theme-secondary/70',
+  },
+  {
+    name: 'BigQuery',
+    icon: '📊',
+    category: 'database',
+    color: 'from-blue-500/60 to-theme-primary/70',
   },
 
   // Mobile
@@ -198,6 +228,18 @@ const technologies: Technology[] = [
     icon: '⚡',
     category: 'tools',
     color: 'from-blue-400/60 to-theme-primary/70',
+  },
+  {
+    name: 'GCP',
+    icon: '☁️',
+    category: 'tools',
+    color: 'from-blue-500/60 to-theme-secondary/70',
+  },
+  {
+    name: 'GitHub Actions',
+    icon: '⚙️',
+    category: 'tools',
+    color: 'from-gray-500/60 to-theme-dark/70',
   },
 
   // AI/ML
