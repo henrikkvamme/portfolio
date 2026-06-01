@@ -8,6 +8,14 @@ import {
 } from '@/data/projects';
 import type { ProjectsFilterState } from '@/types/project';
 
+const isProjectStatus = (
+  value: string
+): value is ProjectsFilterState['status'] =>
+  value === 'all' ||
+  value === 'completed' ||
+  value === 'in-progress' ||
+  value === 'archived';
+
 export function Projects() {
   const [filters, setFilters] = useState<ProjectsFilterState>({
     category: 'all',
@@ -78,12 +86,12 @@ export function Projects() {
 
         {/* Status Filter */}
         <SelectFilter
-          onChange={(e) =>
-            setFilters((prev) => ({
-              ...prev,
-              status: e.target.value as ProjectsFilterState['status'],
-            }))
-          }
+          onChange={(e) => {
+            const { value } = e.target;
+            if (isProjectStatus(value)) {
+              setFilters((prev) => ({ ...prev, status: value }));
+            }
+          }}
           options={[
             { value: 'completed', label: 'Completed' },
             { value: 'in-progress', label: 'In Progress' },

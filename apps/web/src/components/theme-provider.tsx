@@ -72,7 +72,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     if (theme !== 'system') {
-      return;
+      return undefined;
     }
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => setResolvedTheme(resolve('system'));

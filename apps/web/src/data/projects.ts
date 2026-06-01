@@ -1,6 +1,9 @@
 import type { Project } from '@/types/project';
 import projectsData from './projects.json' with { type: 'json' };
 
+// projectsData is statically authored JSON; TS widens its literals (e.g. status)
+// and can't narrow to Project[], so we assert once at this trusted data boundary.
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion
 export const projects: Project[] = projectsData as Project[];
 
 // Utility functions for filtering projects

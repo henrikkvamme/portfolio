@@ -10,26 +10,34 @@
     "build": "bun --filter='*' run build",
     "build:web": "bun --filter=web run build",
     "check-types": "bun --filter='*' run check-types",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "format": "oxfmt --check",
-    "format:fix": "oxfmt",
-    "check": "oxlint && oxfmt --check"
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "format": "vp fmt --check",
+    "format:fix": "vp fmt",
+    "check": "vp lint && vp fmt --check"
   },
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
-    "oxfmt": "^0.48.0",
-    "oxlint": "^1.63.0"
+    "vite-plus": "catalog:"
+  },
+  "overrides": {
+    "vite": "catalog:",
+    "vitest": "catalog:"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "oxlint --fix",
-      "oxfmt"
+      "vp lint --fix",
+      "vp fmt --write"
     ],
     "*.{json,jsonc,md,mdx,css,scss,yaml,yml,html,toml}": [
-      "oxfmt"
+      "vp fmt --write"
     ]
   },
-  "packageManager": "bun@1.2.19"
+  "packageManager": "bun@1.2.19",
+  "catalog": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@latest",
+    "vite-plus": "latest"
+  }
 }

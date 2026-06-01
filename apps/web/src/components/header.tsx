@@ -87,6 +87,7 @@ export default function Header() {
       handleScroll();
       return () => mainElement.removeEventListener('scroll', handleScroll);
     }
+    return undefined;
   }, []);
 
   return (
