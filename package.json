@@ -13,26 +13,15 @@
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",
     "format": "vp fmt --check",
-    "format:fix": "vp fmt",
-    "check": "vp lint && vp fmt --check"
+    "format:fix": "vp fmt --write",
+    "check": "vp check"
   },
   "devDependencies": {
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.2",
     "vite-plus": "catalog:"
   },
   "overrides": {
     "vite": "catalog:",
     "vitest": "catalog:"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "vp lint --fix",
-      "vp fmt --write"
-    ],
-    "*.{json,jsonc,md,mdx,css,scss,yaml,yml,html,toml}": [
-      "vp fmt --write"
-    ]
   },
   "packageManager": "bun@1.2.19",
   "catalog": {

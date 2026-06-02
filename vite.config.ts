@@ -96,4 +96,8 @@ export default defineConfig({
       },
     ],
   },
+  staged: {
+    '*.{js,jsx,ts,tsx,mjs,cjs}': 'vp check --fix',
+    '*.{json,jsonc,md,mdx,css,scss,yaml,yml,html,toml}': 'vp fmt --write',
+  },
 });
