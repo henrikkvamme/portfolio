@@ -25,8 +25,7 @@ export function ContactCard({ colSpan = 1, rowSpan = 1 }: ContactCardProps) {
           Get In Touch
         </h2>
         <p className="mb-6 text-sm text-white/80 leading-relaxed">
-          Currently at OptoScale — open to side projects, consulting, and
-          interesting opportunities.
+          Open to roles and collaborations in AI engineering.
         </p>
 
         <div className="space-y-3">

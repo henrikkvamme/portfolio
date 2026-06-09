@@ -18,16 +18,16 @@ export function ExpertiseCard({
       tiltIntensity="subtle"
     >
       <h3 className="mb-2 font-semibold text-sm text-white/70">
-        Let's grab a coffee
+        Open to roles and collaborations in AI engineering
       </h3>
       <h2 className="mb-4 font-bold text-2xl text-white tracking-tight sm:text-3xl lg:text-4xl">
-        Full-Stack Developer
+        AI Engineer &amp; Full-Stack Developer
       </h2>
       <p className="mb-8 max-w-2xl text-white/80 leading-relaxed">
-        Computer Science student at NTNU with a competitive programming
-        background and hands-on startup experience across modern stacks.
-        Currently at OptoScale — always up to chat about side projects,
-        consulting, or anything interesting. Coffee's on me.
+        AI-native software engineer and full-stack builder. I build and ship AI
+        agents to production, from a self-healing CI pipeline that repairs
+        itself to internal AI used company-wide. Computer Science at NTNU, with
+        two first-place hackathon and case-competition wins in 2026.
       </p>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -40,8 +40,10 @@ export function ExpertiseCard({
           <p className="text-white/60 text-xs">Rust, Node.js, gRPC</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <h4 className="mb-1 font-medium text-sm text-white">Modern Tech</h4>
-          <p className="text-white/60 text-xs">AI/ML, Web Scraping</p>
+          <h4 className="mb-1 font-medium text-sm text-white">
+            AI Engineering
+          </h4>
+          <p className="text-white/60 text-xs">AI agents, LLMs, RAG</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-white/5 p-4">
           <h4 className="mb-1 font-medium text-sm text-white">Mobile & More</h4>

@@ -27,11 +27,13 @@ export function ProfileCard({ colSpan = 1, rowSpan = 1 }: ProfileCardProps) {
         <h3 className="font-semibold text-lg text-white sm:text-xl">
           Henrik Kvamme
         </h3>
-        <p className="text-sm text-white/70">Software Developer</p>
+        <p className="text-sm text-white/70">
+          AI Engineer &amp; Full-Stack Developer
+        </p>
         <div className="flex items-center justify-center gap-2 pt-1">
           <div className="h-1.5 w-1.5 rounded-full bg-green-400" />
           <span className="text-white/60 text-xs">
-            Open to projects & consulting
+            Open to AI engineering roles
           </span>
         </div>
       </div>

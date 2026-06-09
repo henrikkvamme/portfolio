@@ -37,7 +37,7 @@ export function EducationCard({
                 Beijing, China · Sep 2025 – Jan 2026
               </p>
               <p className="mt-1 text-white/60 text-xs leading-relaxed">
-                Exchange semester in CS — ML, Big Data, Distributed Databases,
+                Exchange semester in CS: ML, Big Data, Distributed Databases,
                 Chinese.
               </p>
             </div>
@@ -47,7 +47,7 @@ export function EducationCard({
                 Trondheim, Norway · Aug 2023 – Present
               </p>
               <p className="mt-1 text-white/60 text-xs leading-relaxed">
-                B.Sc. Computer Science — Data Structures & Algorithms, OS,
+                B.Sc. Computer Science: Data Structures & Algorithms, OS,
                 Database, OOP.
               </p>
             </div>

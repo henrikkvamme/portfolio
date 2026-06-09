@@ -72,10 +72,15 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen w-full" ref={heroRef}>
-      {!isThreeJSDisabled && isInView && (
+      {!isThreeJSDisabled && (
         <Canvas
           className="pointer-events-none absolute inset-0 select-none overflow-hidden"
           dpr={CANVAS_DPR}
+          // Mount once; pause via frameloop when scrolled out of view. Do NOT gate
+          // the mount on `isInView` — unmounting/remounting the Canvas during load
+          // orphans the metaball's useFrame (it keeps ticking a detached uniforms
+          // object while the visible material stays frozen, so the balls freeze).
+          frameloop={isInView ? 'always' : 'never'}
           gl={{
             powerPreference: 'high-performance',
             antialias: false,
@@ -106,11 +111,12 @@ export default function Hero() {
           <WordRotate
             className="font-bold font-geist-mono text-7xl text-white/80 mix-blend-difference drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] md:text-8xl lg:text-9xl"
             words={[
+              'AI Engineer',
               'Full-Stack Developer',
-              'Designer',
               'Backend Developer',
               'Frontend Developer',
               'Creator',
+              'Designer',
               'Competitive Programmer',
               'Computer Scientist',
             ]}

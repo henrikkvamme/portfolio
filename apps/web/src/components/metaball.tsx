@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Vector2 } from 'three';
+import { Mesh, RawShaderMaterial, Vector2 } from 'three';
 
 const TRAIL_LENGTH = 15;
 // How often the trail records the leader's position (seconds). Trail span =
@@ -265,7 +265,7 @@ export default function Metaball() {
     };
   }, [handlePointerMove, viewport]);
 
-  useFrame((_state, delta) => {
+  useFrame((state, delta) => {
     const dt = Math.min(delta, MAX_DT_S);
 
     // Underdamped spring: a = -k(x - target) - c·v. Semi-implicit Euler.
@@ -301,16 +301,30 @@ export default function Metaball() {
       trail[0].copy(leader);
     }
 
-    uniforms.uTime.value += dt;
-
     const dbW = gl.domElement.width;
     const dbH = gl.domElement.height;
-    if (
-      uniforms.uResolution.value.x !== dbW ||
-      uniforms.uResolution.value.y !== dbH
-    ) {
-      uniforms.uResolution.value.set(dbW, dbH);
-    }
+
+    // Write to the material actually committed to the rendered scene rather than
+    // the closure's `uniforms`. Under TanStack Start's hydration/mount timing the
+    // Canvas can remount, leaving this useFrame closing over an orphaned uniforms
+    // object while the visible mesh holds a different (frozen) one. `state.scene`
+    // is shared across instances of the single root, so the still-ticking useFrame
+    // always reaches the live material — keeping the animation running regardless.
+    state.scene.traverse((obj) => {
+      if (!(obj instanceof Mesh)) {
+        return;
+      }
+      const material = obj.material;
+      if (!(material instanceof RawShaderMaterial)) {
+        return;
+      }
+      material.uniforms.uTime.value += dt;
+      material.uniforms.uPointerTrail.value = trail;
+      const res = material.uniforms.uResolution.value;
+      if (res.x !== dbW || res.y !== dbH) {
+        res.set(dbW, dbH);
+      }
+    });
   });
 
   return (

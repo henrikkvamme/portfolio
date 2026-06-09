@@ -32,7 +32,7 @@ const awards: Award[] = [
     title: 'Delta Competition',
     meta: 'Zagreb · 2026 · Finalist',
     detail:
-      'Applied mathematics competition focused on AI — solving real-world problems through mathematical innovation.',
+      'Applied mathematics competition focused on AI, solving real-world problems through mathematical innovation.',
   },
 ];
 

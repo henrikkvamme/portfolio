@@ -3,7 +3,7 @@
     "id": "enkeltfort",
     "title": "Enkeltført",
     "description": "AI-native accounting platform for Norwegian sole proprietorships. Automates bookkeeping with AI at the core.",
-    "longDescription": "AI-native accounting for Norwegian enkeltpersonforetak. Built around AI agents that classify transactions, draft entries, and surface insights — bookkeeping is automated, not assisted.",
+    "longDescription": "AI-native accounting for Norwegian enkeltpersonforetak. Built around AI agents that classify transactions, draft entries, and surface insights. Bookkeeping is automated, not assisted.",
     "technologies": ["Bun", "TypeScript", "React", "PostgreSQL"],
     "githubUrl": null,
     "liveUrl": "https://enkeltfort.no",
@@ -19,9 +19,47 @@
     ]
   },
   {
+    "id": "henteplan",
+    "title": "henteplan.no",
+    "description": "Open API for Norwegian waste collection schedules: 13 providers, 265+ municipalities, with a self-healing Claude Code CI pipeline that repairs scrapers automatically.",
+    "longDescription": "Aggregates waste-collection schedules across 13 providers and 265+ Norwegian municipalities into a single open API. The CI pipeline uses Claude Code as an AI agent to detect and repair broken scrapers without human intervention.",
+    "technologies": ["TypeScript", "Bun", "GitHub Actions", "Claude Code"],
+    "githubUrl": null,
+    "liveUrl": "https://henteplan.no",
+    "status": "completed",
+    "featured": true,
+    "category": ["AI/ML", "Automation", "API", "Open Data"],
+    "heroImage": "/images/projects/henteplan/screenshot_1.png",
+    "screenshots": ["/images/projects/henteplan/screenshot_1.png"],
+    "highlights": [
+      "Self-healing scraper CI: a Claude Code agent repairs broken scrapers automatically",
+      "13 providers, 265+ municipalities",
+      "Open API for civic-tech use"
+    ]
+  },
+  {
+    "id": "devme",
+    "title": "devme.sh",
+    "description": "Open-source Rust CLI that goes from git clone to a running dev environment in one command, with an AI-agent skill for Claude Code, Cursor and Codex.",
+    "longDescription": "devme.sh is an open-source Rust CLI that takes a project from git clone to a running dev environment in a single command. It ships an AI-agent skill so coding agents like Claude Code, Cursor, and Codex can set up and repair dev environments on their own.",
+    "technologies": ["Rust", "CLI", "AI/ML"],
+    "githubUrl": "https://github.com/devme-sh/devme",
+    "liveUrl": "https://devme.sh",
+    "status": "in-progress",
+    "featured": true,
+    "category": ["AI/ML", "CLI", "Open Source", "Developer Tools"],
+    "heroImage": null,
+    "screenshots": [],
+    "highlights": [
+      "git clone to a running dev environment in one command",
+      "AI-agent skill for Claude Code, Cursor, and Codex",
+      "Open source, written in Rust"
+    ]
+  },
+  {
     "id": "parti-chat",
     "title": "Partichat",
-    "description": "Featured in Kode24 - A multi-party political Q&A chat providing neutral, side-by-side answers from Norwegian political parties based on their official programs.",
+    "description": "Featured in Kode24. A multi-party political Q&A chat providing neutral, side-by-side answers from Norwegian political parties based on their official programs.",
     "longDescription": "Featured in Kode24, Norway's biggest developer news publication. An advanced political Q&A application that allows users to select multiple Norwegian political parties and get grounded answers based strictly on official party programs. Features RAG-powered responses with pgvector similarity search, citation tracking with page numbers, streaming responses, and multi-party comparison summaries. All responses are in Norwegian Bokmål and strictly grounded in official party program documents.",
     "technologies": [
       "Next.js 15",
@@ -50,7 +88,7 @@
       "/images/projects/parti-chat/screenshot_3.jpeg"
     ],
     "highlights": [
-      "Featured in Kode24 - Norway's biggest developer news publication",
+      "Featured in Kode24, Norway's biggest developer news publication",
       "RAG-powered answers with pgvector similarity search",
       "Multi-party comparison with transparent citations",
       "Streaming responses for real-time answer generation",
@@ -60,38 +98,43 @@
     "pressUrl": "https://www.kode24.no/artikkel/sann-bygde-han-partichatno-uten-hallusinering/244501"
   },
   {
-    "id": "henteplan",
-    "title": "henteplan.no",
-    "description": "Open API for Norwegian waste collection schedules — 13 providers, 265+ municipalities, with a self-healing Claude Code CI pipeline that repairs scrapers automatically.",
-    "longDescription": "Aggregates waste-collection schedules across 13 providers and 265+ Norwegian municipalities into a single open API. The CI pipeline uses Claude Code to detect and repair broken scrapers without human intervention.",
-    "technologies": ["TypeScript", "Bun", "GitHub Actions", "Claude Code"],
-    "githubUrl": null,
-    "liveUrl": "https://henteplan.no",
-    "status": "completed",
-    "featured": false,
-    "category": ["API", "Open Data", "Automation"],
-    "heroImage": "/images/projects/henteplan/screenshot_1.png",
-    "screenshots": ["/images/projects/henteplan/screenshot_1.png"],
-    "highlights": [
-      "13 providers, 265+ municipalities",
-      "Self-healing scraper CI with Claude Code",
-      "Open API for civic-tech use"
-    ]
-  },
-  {
     "id": "sambu",
-    "title": "sambu",
-    "description": "Widget-based dashboard for Norwegian shared housing (kollektiv).",
-    "longDescription": "A widget-based dashboard tailored for kollektiv life — chores, expenses, and shared logistics in one place.",
-    "technologies": ["TypeScript", "React", "Next.js"],
+    "title": "Sambu",
+    "description": "Widget-based dashboard for Norwegian shared housing (kollektiv): chores, shopping lists, bus times, and electricity prices on one drag-and-drop home screen.",
+    "longDescription": "Sambu is a customizable, widget-based dashboard for students and young adults living in Norwegian kollektiv. Each household gets a drag-and-drop grid (react-grid-layout) of self-contained widgets that adapt from phone to TV/kiosk. Widgets pull real data from real sources: live departures from Entur, hourly spot prices from hvakosterstrommen.no, and municipal waste-collection schedules. Chores support rotation, manual, and voluntary assignment; the shared shopping list syncs in real time with optimistic updates across every housemate's device. Built as a Bun + Turborepo monorepo with a type-safe tRPC API, Drizzle/PostgreSQL, and BetterAuth, where each widget ships its own router and schema behind a single registry contract.",
+    "technologies": [
+      "TypeScript",
+      "React 19",
+      "Next.js 16",
+      "tRPC 11",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "BetterAuth",
+      "TanStack Router",
+      "Hono",
+      "Tailwind v4",
+      "shadcn/ui",
+      "Bun",
+      "Turborepo"
+    ],
     "githubUrl": null,
     "liveUrl": "https://sambu.no",
     "status": "in-progress",
-    "featured": false,
-    "category": ["Web App", "Dashboard"],
-    "heroImage": null,
-    "screenshots": [],
-    "highlights": ["Widget-based dashboard", "Designed for shared housing"]
+    "featured": true,
+    "category": ["Web App", "Dashboard", "Civic Tech"],
+    "heroImage": "/images/projects/sambu/screenshot_1.png",
+    "screenshots": [
+      "/images/projects/sambu/screenshot_1.png",
+      "/images/projects/sambu/screenshot_2.png"
+    ],
+    "highlights": [
+      "Drag-and-drop widget dashboard, responsive from phone to TV/kiosk",
+      "Real integrations: Entur bus departures, hvakosterstrommen.no spot prices, municipal waste schedules",
+      "Chores with rotation, manual, and voluntary assignment modes",
+      "Shared shopping list with real-time optimistic sync across devices",
+      "Pluggable widget contract: each widget ships its own tRPC router and Drizzle schema",
+      "Type-safe Bun + Turborepo monorepo with tRPC, Drizzle, and BetterAuth"
+    ]
   },
   {
     "id": "voice-cloner",
@@ -125,8 +168,8 @@
   {
     "id": "samfundet-medlemskort",
     "title": "Samfundet Medlemskort",
-    "description": "Create, crop, and print membership card photos with exact dimensions. Upload a photo, crop to the required ratio, and export a ready‑to‑print A4 sheet or PDF.",
-    "longDescription": "A specialized tool for creating membership card photos with precise 25mm × 30mm dimensions. Features drag & drop upload, enforced 2.5:3 crop ratio, live print preview with cutting guidelines, and one-click PDF export.",
+    "description": "Create, crop, and print membership card photos with exact dimensions. Upload a photo, crop to the required ratio, and export a ready-to-print A4 sheet or PDF.",
+    "longDescription": "A specialized tool for creating membership card photos with precise 25mm by 30mm dimensions. Features drag and drop upload, enforced 2.5:3 crop ratio, live print preview with cutting guidelines, and one-click PDF export.",
     "technologies": [
       "Next.js",
       "React",
@@ -144,8 +187,8 @@
     "heroImage": "/images/projects/samfundet-medlemskort/screenshot_1.jpeg",
     "screenshots": ["/images/projects/samfundet-medlemskort/screenshot_1.jpeg"],
     "highlights": [
-      "Exact sizing: 25mm × 30mm per photo on A4",
-      "Drag & drop upload with enforced crop ratio",
+      "Exact sizing: 25mm by 30mm per photo on A4",
+      "Drag and drop upload with enforced crop ratio",
       "Live print preview with precise mm sizing",
       "One-click PDF export functionality",
       "Accessible, responsive UI with light/dark theme"

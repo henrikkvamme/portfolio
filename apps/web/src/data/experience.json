@@ -1,29 +1,44 @@
 [
   {
+    "id": "rystad-intern",
+    "company": "Rystad Energy",
+    "companyDescription": "Independent energy research and business intelligence firm",
+    "role": "Data Science Intern (Incoming)",
+    "startDate": "2026-06-01",
+    "endDate": "2026-08-31",
+    "location": "Oslo, Norway",
+    "isCurrentRole": false,
+    "technologies": ["Python", "SQL", "Data Science"],
+    "highlights": [
+      "Summer 2026 internship",
+      "Data and analytics for energy markets"
+    ],
+    "description": "Incoming summer 2026 internship on the data science team, working on data and analytics for energy markets."
+  },
+  {
     "id": "optoscale-junior",
     "company": "OptoScale AS",
     "companyDescription": "Aquaculture-tech platform for fish health and biomass monitoring",
     "role": "Junior Software Engineer",
     "startDate": "2026-02-01",
-    "endDate": null,
+    "endDate": "2026-06-30",
     "location": "Trondheim, Norway",
-    "isCurrentRole": true,
+    "isCurrentRole": false,
     "technologies": [
       "React",
       "Django",
       "TypeScript",
-      "Bun",
-      "PostgreSQL",
       "BigQuery",
       "GCP",
+      "PostgreSQL",
       "TailwindCSS",
       "shadcn/ui"
     ],
     "highlights": [
-      "Full-stack on aquaculture-tech platform",
-      "Data dashboards and internal tools"
+      "Internal AI tools used company-wide (80+ employees)",
+      "Automated data and reporting workflows"
     ],
-    "description": "Full-stack development on aquaculture-tech platform. Built and maintained data dashboards and internal tools with Tailwind, shadcn, and modern frontend tooling."
+    "description": "Built internal AI tools used company-wide (80+ employees) to automate data and reporting workflows, plus full-stack features and data dashboards. React, Django, TypeScript, BigQuery, GCP."
   },
   {
     "id": "eksamensportalen",
@@ -50,23 +65,12 @@
     "endDate": "2026-02-28",
     "location": "Trondheim, Norway",
     "isCurrentRole": false,
-    "technologies": [
-      "TypeScript",
-      "Rust",
-      "Flutter",
-      "Dart",
-      "Hono",
-      "PostgreSQL",
-      "Prisma",
-      "gRPC",
-      "Tokio",
-      "Protobuf"
-    ],
+    "technologies": ["Rust", "PostGIS", "WebSockets", "Flutter", "Dart"],
     "highlights": [
-      "Rust, gRPC, Tokio, Flutter in production",
-      "Improved observability and performance"
+      "PostGIS geofencing with point-in-polygon queries",
+      "Low-latency WebSocket location updates"
     ],
-    "description": "Contributed to Rust microservices (Tokio, gRPC/Protobuf) and Flutter apps. Collaborated on requirements, testing, and reviews; supported integration and deployment workflows."
+    "description": "Built a real-time Rust backend for a study-app client: PostGIS geofencing with point-in-polygon spatial queries and low-latency WebSocket location updates. Flutter/Dart client."
   },
   {
     "id": "barebrukt-fullstack",

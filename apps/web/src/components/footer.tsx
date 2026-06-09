@@ -8,7 +8,7 @@ export function Footer() {
     <BrandFooter
       className="mt-20"
       links={DEFAULT_SOCIAL_LINKS}
-      tagline="Full-Stack Developer & AI Engineer"
+      tagline="AI Engineer & Full-Stack Developer"
       theme="dark"
     />
   );
