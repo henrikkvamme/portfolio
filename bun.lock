@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "portfolio",
@@ -70,7 +71,7 @@
       "devDependencies": {
         "@rollup/plugin-commonjs": "^25.0.0",
         "@rollup/plugin-node-resolve": "^15.0.0",
-        "@rollup/plugin-typescript": "^11.0.0",
+        "@rollup/plugin-typescript": "^12.3.0",
         "@rollup/plugin-url": "^8.0.0",
         "@types/react": "^19.1.1",
         "@types/react-dom": "^19.1.1",
@@ -452,7 +453,7 @@
 
     "@rollup/plugin-node-resolve": ["@rollup/plugin-node-resolve@15.3.1", "", { "dependencies": { "@rollup/pluginutils": "^5.0.1", "@types/resolve": "1.20.2", "deepmerge": "^4.2.2", "is-module": "^1.0.0", "resolve": "^1.22.1" }, "peerDependencies": { "rollup": "^2.78.0||^3.0.0||^4.0.0" }, "optionalPeers": ["rollup"] }, "sha512-tgg6b91pAybXHJQMAAwW9VuWBO6Thi+q7BCNARLwSqlmsHz0XYURtGvh/AuwSADXSI4h/2uHbs7s4FzlZDGSGA=="],
 
-    "@rollup/plugin-typescript": ["@rollup/plugin-typescript@11.1.6", "", { "dependencies": { "@rollup/pluginutils": "^5.1.0", "resolve": "^1.22.1" }, "peerDependencies": { "rollup": "^2.14.0||^3.0.0||^4.0.0", "tslib": "*", "typescript": ">=3.7.0" }, "optionalPeers": ["rollup", "tslib"] }, "sha512-R92yOmIACgYdJ7dJ97p4K69I8gg6IEHt8M7dUBxN3W6nrO8uUxX5ixl0yU/N3aZTi8WhPuICvOHXQvF6FaykAA=="],
+    "@rollup/plugin-typescript": ["@rollup/plugin-typescript@12.3.0", "", { "dependencies": { "@rollup/pluginutils": "^5.1.0", "resolve": "^1.22.1" }, "peerDependencies": { "rollup": "^2.14.0||^3.0.0||^4.0.0", "tslib": "*", "typescript": ">=3.7.0" }, "optionalPeers": ["rollup", "tslib"] }, "sha512-7DP0/p7y3t67+NabT9f8oTBFE6gGkto4SA6Np2oudYmZE/m1dt8RB0SjL1msMxFpLo631qjRCcBlAbq1ml/Big=="],
 
     "@rollup/plugin-url": ["@rollup/plugin-url@8.0.2", "", { "dependencies": { "@rollup/pluginutils": "^5.0.1", "make-dir": "^3.1.0", "mime": "^3.0.0" }, "peerDependencies": { "rollup": "^1.20.0||^2.0.0||^3.0.0||^4.0.0" }, "optionalPeers": ["rollup"] }, "sha512-5yW2LP5NBEgkvIRSSEdJkmxe5cUNZKG3eenKtfJvSkxVm/xTTu7w+ayBtNwhozl1ZnTUCU0xFaRQR+cBl2H7TQ=="],
 
