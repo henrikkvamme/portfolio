@@ -1,20 +1,20 @@
 version: 2
 updates:
-  - package-ecosystem: "bun"
+  - package-ecosystem: 'bun'
     directories:
-      - "/"
-      - "/apps/web"
-      - "/packages/brand"
+      - '/'
+      - '/apps/web'
+      - '/packages/brand'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 10
     groups:
       minor-and-patch:
         update-types:
-          - "minor"
-          - "patch"
+          - 'minor'
+          - 'patch'
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'

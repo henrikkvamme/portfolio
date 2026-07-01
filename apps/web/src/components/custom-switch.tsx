@@ -1,17 +1,20 @@
 type CustomSwitchProps = {
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
+  'aria-label': string;
   className?: string;
 };
 
 export default function CustomSwitch({
   checked,
   onCheckedChange,
+  'aria-label': ariaLabel,
   className = '',
 }: CustomSwitchProps) {
   return (
     <div
       aria-checked={checked}
+      aria-label={ariaLabel}
       className={`relative inline-flex h-4 w-7 shrink-0 cursor-pointer items-center rounded-full transition-colors ${
         checked ? 'bg-white/30' : 'bg-white/10'
       } ${className}`}

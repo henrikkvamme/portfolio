@@ -22,6 +22,7 @@ export default function AnimationToggle({
       <Zap className="mr-2 h-4 w-4" />
       {showLabel && <span>Animation</span>}
       <CustomSwitch
+        aria-label="Toggle animation"
         checked={isAnimationEnabled}
         className="ml-2"
         onCheckedChange={toggleAnimation}

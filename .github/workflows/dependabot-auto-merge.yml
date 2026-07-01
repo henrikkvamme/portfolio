@@ -2,7 +2,7 @@ name: Dependabot auto-merge
 
 on:
   schedule:
-    - cron: "23 */6 * * *"
+    - cron: '23 */6 * * *'
   workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]

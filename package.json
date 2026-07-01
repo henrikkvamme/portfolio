@@ -14,14 +14,23 @@
     "lint:fix": "vp lint --fix",
     "format": "vp fmt --check",
     "format:fix": "vp fmt --write",
-    "check": "vp check"
+    "check": "bun --cwd apps/web tsr generate && vp check"
   },
   "devDependencies": {
-    "vite-plus": "catalog:"
+    "vite-plus": "^0.2.1"
   },
   "overrides": {
+    "devalue": ">=5.3.2",
+    "minimatch": ">=5.1.7",
+    "picomatch": ">=2.3.2",
+    "preact": ">=10.27.3",
+    "rollup": ">=4.59.0",
+    "shell-quote": ">=1.8.4",
+    "svgo": ">=2.8.1",
+    "undici": ">=7.28.0",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "ws": ">=8.21.0"
   },
   "packageManager": "bun@1.2.19",
   "catalog": {
